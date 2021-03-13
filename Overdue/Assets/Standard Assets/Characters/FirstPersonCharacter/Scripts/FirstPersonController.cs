@@ -58,9 +58,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
         }
 
-
         // Update is called once per frame
-        private void Update()
+        public void HandleUpdate()
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
@@ -93,7 +92,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void FixedUpdate()
+        public void HandleFixedUpdate()
         {
             float speed;
             GetInput(out speed);
@@ -209,6 +208,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                
+            }
 
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.

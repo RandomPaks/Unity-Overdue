@@ -19,7 +19,7 @@ public class PlayerInteraction : MonoBehaviour
         playerCamera = Camera.main;
     }
 
-    private void Update()
+    public void HandleUpdate()
     {
         IInteractable lookedAtInteractable = GetLookedAtInteractable();
         
@@ -27,12 +27,12 @@ public class PlayerInteraction : MonoBehaviour
 
         if (hasClicked)
         {
-            if (Input.GetAxis("Fire1") < 0.1f)
+            if (Input.GetMouseButtonDown(0))
             {
                 hasClicked = false;
             }
         }
-        else if (Input.GetAxis("Fire1") >= 0.1f)
+        else if (Input.GetMouseButtonDown(0))
         {
             hasClicked = true;
             

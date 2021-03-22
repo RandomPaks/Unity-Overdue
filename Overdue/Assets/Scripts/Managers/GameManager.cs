@@ -8,7 +8,8 @@ public enum GameState { GAME, PAUSED, DIALOG}
 public class GameManager : MonoBehaviour
 {
     GameState state;
-    [SerializeField] UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController; 
+    [SerializeField] UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
+    [SerializeField] PlayerInteraction playerInteraction;
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -20,6 +21,18 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         this.state = GameState.GAME;
+
+        DialogManager.Instance.OnShowDialog += () =>
+        {
+            this.state = GameState.DIALOG;
+        };
+        DialogManager.Instance.OnCloseDialog += () =>
+        {
+            if (this.state == GameState.DIALOG)
+            {
+                this.state = GameState.GAME;
+            }
+        };
     }
 
     // Update is called once per frame
@@ -28,7 +41,12 @@ public class GameManager : MonoBehaviour
         if (this.state == GameState.GAME)
         {
             this.playerController.HandleUpdate();
+            this.playerInteraction.HandleUpdate();
         }   
+        else if (this.state == GameState.DIALOG)
+        {
+            DialogManager.Instance.HandleUpdate();
+        }
     }
 
     void FixedUpdate()

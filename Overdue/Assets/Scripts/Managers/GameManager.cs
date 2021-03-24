@@ -61,4 +61,9 @@ public class GameManager : MonoBehaviour
     {
         this.state = state; 
     }
+
+    public void toggleCursorLock(bool toggle)
+    {
+        playerController.m_MouseLook.SetCursorLock(toggle);
+    }
 }

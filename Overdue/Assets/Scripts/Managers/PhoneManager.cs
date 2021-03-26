@@ -10,7 +10,12 @@ public class PhoneManager : MonoBehaviour
 
     bool isPhone = false;
     [SerializeField] GameObject phoneUI;
-    [SerializeField] private GameObject itemButton;
+    [SerializeField] GameObject itemButton;
+    [SerializeField] Transform inspectTransform = null;
+
+    bool isInspectingItem = false;
+
+    InventoryItem currentInspectingItem = null;
 
     void Awake()
     {
@@ -30,6 +35,14 @@ public class PhoneManager : MonoBehaviour
 
         GameObject button = Instantiate(itemButton, phoneUI.transform);
         button.GetComponentInChildren<Text>().text = item.name;
+
+        // Have to initialize the inventory item
+        InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
+        inventoryItem.Initialize(inspectTransform);
+        item.layer = LayerMask.NameToLayer("Inventory");
+        
+        // Link button to inventory item
+        button.GetComponent<InventoryItemButton>().Initialize(inventoryItem);
     }
 
     void Update()
@@ -37,6 +50,7 @@ public class PhoneManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             isPhone = !isPhone;
+
             if (isPhone)
             {
                 this.phoneUI.SetActive(true);
@@ -50,5 +64,36 @@ public class PhoneManager : MonoBehaviour
                 GameManager.Instance.SetState(GameState.GAME);
             }
         }
+    }
+
+    public void InspectItem(InventoryItem inventoryItem)
+    {
+        if (isInspectingItem)
+        {
+            StopInspectingItem();
+
+            if (currentInspectingItem != inventoryItem)
+            {
+                StartInspectingItem(inventoryItem);
+            }
+        }
+        else
+        {
+            StartInspectingItem(inventoryItem);
+        }
+    }
+
+    void StartInspectingItem(InventoryItem inventoryItem)
+    {
+        isInspectingItem = true;
+        currentInspectingItem = inventoryItem;
+        currentInspectingItem.transform.position = inspectTransform.position;
+        currentInspectingItem.StartInspect();
+    }
+
+    void StopInspectingItem()
+    {
+        isInspectingItem = false;
+        currentInspectingItem.StopInspect();
     }
 }

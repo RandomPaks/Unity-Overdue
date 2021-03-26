@@ -1,20 +1,19 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] private LayerMask interactableLayers = new LayerMask();
-    [SerializeField, Min(0)] private float interactRange = 2f;
-    [SerializeField, Min(0)] private float interactRadius = 0.1f;
+    [SerializeField] LayerMask interactableLayers = new LayerMask();
+    [SerializeField, Min(0)] float interactRange = 2f;
+    [SerializeField, Min(0)] float interactRadius = 0.1f;
 
-    private Camera playerCamera = null;
+    Camera playerCamera = null;
 
-    private IInteractable currentlyHovering = null;
+    IInteractable currentlyHovering = null;
 
-    private bool hasClicked = false;
+    bool hasClicked = false;
 
-    private void Awake()
+    void Awake()
     {
         playerCamera = Camera.main;
     }
@@ -27,7 +26,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (hasClicked)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 hasClicked = false;
             }
@@ -43,7 +42,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void UpdateHoveringInteractable(IInteractable lookedAtInteractable)
+    void UpdateHoveringInteractable(IInteractable lookedAtInteractable)
     {
         if (lookedAtInteractable != null)
         {
@@ -63,7 +62,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private IInteractable GetLookedAtInteractable()
+    IInteractable GetLookedAtInteractable()
     {
         var playerCameraTransform = playerCamera.transform;
         Vector3 rayOrigin = playerCameraTransform.position;
@@ -72,12 +71,12 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.SphereCast(interactRay, interactRadius, out var hit, interactRange, interactableLayers))
         {
-            Debug.DrawLine(rayOrigin, hit.point);
-
             IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
             
             if (interactable != null)
             {
+                Debug.DrawLine(rayOrigin, hit.point);
+                
                 return interactable;
             }
         }
@@ -85,16 +84,26 @@ public class PlayerInteraction : MonoBehaviour
         return null;
     }
 
-    private void StartInteractableHover(IInteractable castedInteractable)
+    void StartInteractableHover(IInteractable castedInteractable)
     {
-        Debug.Assert(currentlyHovering == null);
+        if (currentlyHovering != null)
+        {
+            Debug.LogError("Tried to overwrite currently hovered interactable!");
+            return;
+        }
+
         currentlyHovering = castedInteractable;
         castedInteractable.StartHover();
     }
 
-    private void StopInteractableHover()
+    void StopInteractableHover()
     {
-        Debug.Assert(currentlyHovering != null);
+        if (currentlyHovering == null)
+        {
+            Debug.LogError("Tried to stop hovering interactable when there is none!");
+            return;
+        }
+        
         currentlyHovering.StopHover();
         currentlyHovering = null;
     }

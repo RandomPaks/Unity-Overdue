@@ -5,21 +5,21 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField, Min(0)] private float openDuration = 1f;
-    [SerializeField, Min(0)] private float closeDuration = 3f;
-    [SerializeField, Min(0)] private float remainOpenDuration = 5f;
+    [SerializeField, Min(0)] float openDuration = 1f;
+    [SerializeField, Min(0)] float closeDuration = 3f;
+    [SerializeField, Min(0)] float remainOpenDuration = 5f;
 
-    private Vector3 originalRotation = Vector3.zero;
+    Vector3 originalRotation = Vector3.zero;
     
-    private bool isOpen = false;
-    private float openTimer = 0f;
+    bool isOpen = false;
+    float openTimer = 0f;
 
-    private void Start()
+    void Start()
     {
         originalRotation = transform.rotation.eulerAngles;
     }
     
-    private void Update()
+    void Update()
     {
         if (!isOpen)
             return;

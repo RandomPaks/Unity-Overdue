@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,13 +7,18 @@ public class PhoneManager : MonoBehaviour
 {
     public static PhoneManager Instance { get; private set; }
 
-    private List<GameObject> inventory;
+    List<GameObject> inventory;
 
     bool isPhone = false;
+    
     [SerializeField] GameObject phoneUI;
     [SerializeField] GameObject itemButton;
+    
+    [Header("Item Inspecting")]
     [SerializeField] Transform inspectTransform = null;
 
+    bool isTransitioningIn = false;
+    bool isTransitioningOut = false;
     bool isInspectingItem = false;
 
     InventoryItem currentInspectingItem = null;
@@ -59,6 +65,11 @@ public class PhoneManager : MonoBehaviour
             }
             else
             {
+                if (isInspectingItem && !isTransitioningOut)
+                {
+                    StopInspectingItem();
+                }
+                
                 this.phoneUI.SetActive(false);
                 GameManager.Instance.toggleCursorLock(true);
                 GameManager.Instance.SetState(GameState.GAME);
@@ -68,6 +79,9 @@ public class PhoneManager : MonoBehaviour
 
     public void InspectItem(InventoryItem inventoryItem)
     {
+        if (isTransitioningIn)
+            return;
+        
         if (isInspectingItem)
         {
             StopInspectingItem();
@@ -85,15 +99,34 @@ public class PhoneManager : MonoBehaviour
 
     void StartInspectingItem(InventoryItem inventoryItem)
     {
+        StartCoroutine(StartInspectCoroutine(inventoryItem));
+    }
+
+    IEnumerator StartInspectCoroutine(InventoryItem inventoryItem)
+    {
         isInspectingItem = true;
+        isTransitioningIn = true;
         currentInspectingItem = inventoryItem;
         currentInspectingItem.transform.position = inspectTransform.position;
-        currentInspectingItem.StartInspect();
+        
+        yield return StartCoroutine(currentInspectingItem.StartInspectCoroutine());
+
+        isTransitioningIn = false;
     }
 
     void StopInspectingItem()
     {
+        StartCoroutine(StopInspectingItemCoroutine());
+    }
+
+    IEnumerator StopInspectingItemCoroutine()
+    {
+        isTransitioningOut = true;
+        
+        yield return StartCoroutine(currentInspectingItem.StopInspectCoroutine());
+
+        currentInspectingItem = null;
+        isTransitioningOut = false;
         isInspectingItem = false;
-        currentInspectingItem.StopInspect();
     }
 }

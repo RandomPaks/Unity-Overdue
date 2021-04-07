@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     GameState state;
     [SerializeField] UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
     [SerializeField] PlayerInteraction playerInteraction;
+    [SerializeField] SpiritController spiritController;
     public static GameManager Instance { get; private set; }
 
     void Awake()
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         {
             this.playerController.HandleUpdate();
             this.playerInteraction.HandleUpdate();
+            this.spiritController.HandleUpdate();
         }   
         else if (this.state == GameState.DIALOG)
         {

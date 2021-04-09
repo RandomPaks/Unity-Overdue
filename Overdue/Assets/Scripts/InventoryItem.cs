@@ -1,14 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class InventoryItem : MonoBehaviour
 {
+    [SerializeField] string itemName = String.Empty;
+    [SerializeField] string itemDescription = String.Empty;
+    
     Transform rotationAnchorTransform = null;
 
     bool isBeingInspected = false;
     bool canRotateItem = false;
+
+    public string ItemName => itemName;
+    public string ItemDescription => itemDescription;
+
+    void Start()
+    {
+        if (itemName == String.Empty)
+        {
+            itemName = name;
+        }
+    }
 
     void Update()
     {
@@ -35,6 +50,7 @@ public class InventoryItem : MonoBehaviour
     public void Initialize(Transform newRotationAnchorTransform)
     {
         rotationAnchorTransform = newRotationAnchorTransform;
+        gameObject.layer = LayerMask.NameToLayer("Inventory");
     }
 
     public IEnumerator StartInspectCoroutine()
@@ -45,10 +61,9 @@ public class InventoryItem : MonoBehaviour
             yield break;
         }
 
+        gameObject.SetActive(true);
         isBeingInspected = true;
         canRotateItem = true;
-        
-        gameObject.SetActive(true);
 
         transform.localScale = Vector3.zero;
         transform.rotation = rotationAnchorTransform.rotation;

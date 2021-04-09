@@ -1,132 +1,189 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PhoneManager : MonoBehaviour
 {
-    public static PhoneManager Instance { get; private set; }
+	public static PhoneManager Instance { get; private set; }
 
-    List<GameObject> inventory;
+	List<InventoryItem> inventory;
 
-    bool isPhone = false;
-    
-    [SerializeField] GameObject phoneUI;
-    [SerializeField] GameObject itemButton;
-    
-    [Header("Item Inspecting")]
-    [SerializeField] Transform inspectTransform = null;
+	bool isPhone = false;
 
-    bool isTransitioningIn = false;
-    bool isTransitioningOut = false;
-    bool isInspectingItem = false;
+	[Header("UI Prefabs")]
+	[SerializeField] InventoryItemButton itemButtonPrefab;
+	
+	[Header("UI Instance References")]
+	[SerializeField] GameObject phoneUI;
+	[SerializeField] GameObject phoneInventoryUI;
+	[SerializeField] TMP_Text itemDescriptionText;
 
-    InventoryItem currentInspectingItem = null;
+	[Header("Item Inspecting")]
+	[SerializeField] Transform inspectTransform = null;
 
-    void Awake()
-    {
-        Instance = this;
-    }
+	InventoryItem currentInspectingItem = null;
 
-    void Start()
-    {
-        inventory = new List<GameObject>();
-    }
+	Coroutine switchInspectingItemCoroutine = null;
+	
+	bool isTransitioningIn = false;
+	bool isTransitioningOut = false;
+	bool isInspectingItem = false;
 
-    public void AddItem(GameObject item)
-    {
-        item.SetActive(false);
-        item.transform.position = new Vector3(0, -100, 0);
-        inventory.Add(item);
+	void Awake()
+	{
+		Instance = this;
+	}
 
-        GameObject button = Instantiate(itemButton, phoneUI.transform);
-        button.GetComponentInChildren<Text>().text = item.name;
+	void Start()
+	{
+		inventory = new List<InventoryItem>();
+	}
 
-        // Have to initialize the inventory item
-        InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-        inventoryItem.Initialize(inspectTransform);
-        item.layer = LayerMask.NameToLayer("Inventory");
-        
-        // Link button to inventory item
-        button.GetComponent<InventoryItemButton>().Initialize(inventoryItem);
-    }
+	public void AddItem(InventoryItem inventoryItem)
+	{
+		inventoryItem.gameObject.SetActive(false);
+		inventoryItem.transform.position = new Vector3(0, -100, 0);
+		inventoryItem.Initialize(inspectTransform);
+		inventory.Add(inventoryItem);
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            isPhone = !isPhone;
+		InventoryItemButton inventoryItemButton = Instantiate(itemButtonPrefab, phoneInventoryUI.transform);
+		inventoryItemButton.Initialize(inventoryItem);
+	}
 
-            if (isPhone)
-            {
-                this.phoneUI.SetActive(true);
-                GameManager.Instance.toggleCursorLock(false);
-                GameManager.Instance.SetState(GameState.PAUSED);
-            }
-            else
-            {
-                if (isInspectingItem && !isTransitioningOut)
-                {
-                    StopInspectingItem();
-                }
-                
-                this.phoneUI.SetActive(false);
-                GameManager.Instance.toggleCursorLock(true);
-                GameManager.Instance.SetState(GameState.GAME);
-            }
-        }
-    }
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			isPhone = !isPhone;
 
-    public void InspectItem(InventoryItem inventoryItem)
-    {
-        if (isTransitioningIn)
-            return;
-        
-        if (isInspectingItem)
-        {
-            StopInspectingItem();
+			if (isPhone)
+			{
+				this.phoneUI.SetActive(true);
+				GameManager.Instance.toggleCursorLock(false);
+				GameManager.Instance.SetState(GameState.PAUSED);
+			}
+			else
+			{
+				if (switchInspectingItemCoroutine != null)
+				{
+					StopCoroutine(switchInspectingItemCoroutine);
+					switchInspectingItemCoroutine = null;
+				}
+				
+				if (isInspectingItem && !isTransitioningOut)
+				{
+					StopInspectingItem();
+				}
 
-            if (currentInspectingItem != inventoryItem)
-            {
-                StartInspectingItem(inventoryItem);
-            }
-        }
-        else
-        {
-            StartInspectingItem(inventoryItem);
-        }
-    }
+				this.phoneUI.SetActive(false);
+				GameManager.Instance.toggleCursorLock(true);
+				GameManager.Instance.SetState(GameState.GAME);
+			}
+		}
+	}
 
-    void StartInspectingItem(InventoryItem inventoryItem)
-    {
-        StartCoroutine(StartInspectCoroutine(inventoryItem));
-    }
+	// Check if player has key of matching KeyType
+	public bool HasKey(KeyType keyType)
+	{
+		bool IsItemOfKeyType(InventoryItem inventoryItem)
+		{
+			if (!inventoryItem.TryGetComponent(out Key key))
+				return false;
 
-    IEnumerator StartInspectCoroutine(InventoryItem inventoryItem)
-    {
-        isInspectingItem = true;
-        isTransitioningIn = true;
-        currentInspectingItem = inventoryItem;
-        currentInspectingItem.transform.position = inspectTransform.position;
-        
-        yield return StartCoroutine(currentInspectingItem.StartInspectCoroutine());
+			return key.KeyType == keyType;
+		}
 
-        isTransitioningIn = false;
-    }
+		return GetItem(IsItemOfKeyType) != null;
+	}
 
-    void StopInspectingItem()
-    {
-        StartCoroutine(StopInspectingItemCoroutine());
-    }
+	// Get an item using a predicate
+	public InventoryItem GetItem(Predicate<InventoryItem> predicate)
+	{
+		foreach (InventoryItem inventoryItem in inventory)
+		{
+			if (predicate.Invoke(inventoryItem))
+				return inventoryItem;
+		}
 
-    IEnumerator StopInspectingItemCoroutine()
-    {
-        isTransitioningOut = true;
-        
-        yield return StartCoroutine(currentInspectingItem.StopInspectCoroutine());
+		return null;
+	}
 
-        currentInspectingItem = null;
-        isTransitioningOut = false;
-        isInspectingItem = false;
-    }
+	public void InspectItem(InventoryItem itemToInspect)
+	{
+		if (isTransitioningIn)
+			return;
+
+		if (isInspectingItem)
+		{
+			if (currentInspectingItem == itemToInspect)
+			{
+				StopInspectingItem();
+			}
+			else
+			{
+				SwitchInspectingItem(itemToInspect);
+			}
+		}
+		else
+		{
+			StartInspectingItem(itemToInspect);
+		}
+	}
+
+	void StartInspectingItem(InventoryItem inventoryItem)
+	{
+		StartCoroutine(StartInspectCoroutine(inventoryItem));
+	}
+
+	IEnumerator StartInspectCoroutine(InventoryItem inventoryItem)
+	{
+		isInspectingItem = true;
+		isTransitioningIn = true;
+		
+		currentInspectingItem = inventoryItem;
+		currentInspectingItem.transform.position = inspectTransform.position;
+		
+		itemDescriptionText.gameObject.SetActive(true);
+		itemDescriptionText.text = inventoryItem.ItemDescription;
+			
+		yield return StartCoroutine(currentInspectingItem.StartInspectCoroutine());
+
+		isTransitioningIn = false;
+	}
+
+	void StopInspectingItem()
+	{
+		StartCoroutine(StopInspectingItemCoroutine());
+	}
+
+	IEnumerator StopInspectingItemCoroutine()
+	{
+		isTransitioningOut = true;
+		
+		itemDescriptionText.gameObject.SetActive(false);
+
+		yield return StartCoroutine(currentInspectingItem.StopInspectCoroutine());
+
+		currentInspectingItem = null;
+		isTransitioningOut = false;
+		isInspectingItem = false;
+	}
+
+	void SwitchInspectingItem(InventoryItem itemToInspect)
+	{
+		if (switchInspectingItemCoroutine != null)
+			return;
+		
+		switchInspectingItemCoroutine = StartCoroutine(SwitchInspectingItemCoroutine(itemToInspect));
+	}
+
+	IEnumerator SwitchInspectingItemCoroutine(InventoryItem itemToInspect)
+	{
+		yield return StartCoroutine(StopInspectingItemCoroutine());
+		yield return StartCoroutine(StartInspectCoroutine(itemToInspect));
+		switchInspectingItemCoroutine = null;
+	}
 }

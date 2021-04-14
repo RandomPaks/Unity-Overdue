@@ -24,6 +24,7 @@ public class TestDialog : MonoBehaviour, IInteractable
 
     void IInteractable.Interact()
     {
+        DialogManager.Instance.UpdateDialogName(this.name);
         StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog));
     }
 
@@ -35,11 +36,5 @@ public class TestDialog : MonoBehaviour, IInteractable
     void IInteractable.StopHover()
     {
         mainMaterial.color = originalColor;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

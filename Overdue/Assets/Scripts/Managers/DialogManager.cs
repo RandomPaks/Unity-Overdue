@@ -7,6 +7,7 @@ using System;
 public class DialogManager : MonoBehaviour
 {
     [SerializeField] GameObject dialogBox;
+    [SerializeField] TextMeshProUGUI dialogName;
     [SerializeField] TextMeshProUGUI dialogText;
 
     public event Action OnShowDialog;
@@ -56,6 +57,11 @@ public class DialogManager : MonoBehaviour
                 Debug.Log("Dialog finished");
             }
         }
+    }
+
+    public void UpdateDialogName(string name)
+    {
+        this.dialogName.text = name;
     }
 
     public void UpdateDialogText(string line)

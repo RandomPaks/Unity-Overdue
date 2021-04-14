@@ -15,7 +15,7 @@ public class Key : MonoBehaviour, IInteractable
     [SerializeField] KeyType keyType = KeyType.None;
 
     public KeyType KeyType => keyType;
-    
+
     InventoryItem inventoryItem = null;
 
     void Awake()

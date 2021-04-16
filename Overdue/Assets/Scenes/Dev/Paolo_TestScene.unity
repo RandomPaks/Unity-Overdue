@@ -321,12 +321,134 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   itemDescription: 
+--- !u!1 &560884025 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5678097829132595111, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1162471125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &560884027 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5678097829132595105, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1162471125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560884025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &560884030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560884025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 465735890}
+          m_MethodName: OnEnterResumeButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 465735890}
+          m_MethodName: OnExitResumeButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &702683681 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2126248662917632537, guid: 58d328271e57b954cb5a5001ac80fbe7,
     type: 3}
   m_PrefabInstance: {fileID: 1162471125}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &804583918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1724167996435889471, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1162471125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &804583920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7043735616999363075, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1162471125}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804583918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &804583923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804583918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 465735890}
+          m_MethodName: OnEnterQuitButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 465735890}
+          m_MethodName: OnExitQuitButton
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &890413070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -676,6 +798,16 @@ PrefabInstance:
       propertyPath: pauseUI
       value: 
       objectReference: {fileID: 1162471132}
+    - target: {fileID: 5382122250013562058, guid: 57e9d04712eec43499c0a515375fdd0b,
+        type: 3}
+      propertyPath: resumeButton
+      value: 
+      objectReference: {fileID: 560884027}
+    - target: {fileID: 5382122250013562058, guid: 57e9d04712eec43499c0a515375fdd0b,
+        type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 804583920}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57e9d04712eec43499c0a515375fdd0b, type: 3}
 --- !u!1001 &1162471125
@@ -1032,6 +1164,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5678097829132595105, guid: 58d328271e57b954cb5a5001ac80fbe7,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678097829132595105, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 465735890}
@@ -1039,6 +1176,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnResumeClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678097829132595105, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678097829132595105, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5678097829713953827, guid: 58d328271e57b954cb5a5001ac80fbe7,
         type: 3}

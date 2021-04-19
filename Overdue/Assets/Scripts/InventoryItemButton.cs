@@ -6,16 +6,18 @@ public class InventoryItemButton : MonoBehaviour
 {
     [SerializeField] TMP_Text itemNameText = null;
     
-    InventoryItem inventoryItem = null;
+    Item item = null;
+
+    public Item Item => item;
     
-    public void Initialize(InventoryItem newInventoryItem)
+    public void Initialize(Item newItem)
     {
-        inventoryItem = newInventoryItem;
-        itemNameText.text = newInventoryItem.ItemName;
+        item = newItem;
+        itemNameText.text = newItem.ItemName;
     }
     
     public void OnButtonClicked()
     {
-        PhoneManager.Instance.InspectItem(inventoryItem);
+        PhoneManager.Instance.InspectItem(item);
     }
 }

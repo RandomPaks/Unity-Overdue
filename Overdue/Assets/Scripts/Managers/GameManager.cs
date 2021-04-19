@@ -9,9 +9,13 @@ public class GameManager : MonoBehaviour
 {
     GameState state;
     [SerializeField] UnityStandardAssets.Characters.FirstPerson.FirstPersonController playerController;
+    [SerializeField] GameObject player;
     [SerializeField] PlayerInteraction playerInteraction;
     [SerializeField] SpiritController spiritController;
+    
     public static GameManager Instance { get; private set; }
+
+    public GameObject Player => player;
 
     void Awake()
     {
@@ -35,15 +39,14 @@ public class GameManager : MonoBehaviour
             }
         };
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (this.state == GameState.GAME)
         {
             this.playerController.HandleUpdate();
             this.playerInteraction.HandleUpdate();
-            this.spiritController.HandleUpdate();
+            // this.spiritController.HandleUpdate();
         }   
         else if (this.state == GameState.DIALOG)
         {

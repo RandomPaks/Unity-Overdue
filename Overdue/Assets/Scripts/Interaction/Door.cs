@@ -4,7 +4,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] KeyType keyType = KeyType.None;
+    [SerializeField] Item keyToOpen;
     [SerializeField, Min(0)] float openDuration = 1f;
     [SerializeField, Min(0)] float closeDuration = 3f;
     [SerializeField, Min(0)] float remainOpenDuration = 5f;
@@ -65,10 +65,10 @@ public class Door : MonoBehaviour, IInteractable
 
     bool IsOpenable()
     {
-        if (keyType == KeyType.None)
+        if (keyToOpen == null)
             return true;
-
-        if (PhoneManager.Instance.HasKey(keyType))
+        
+        if (PhoneManager.Instance.HasItem(keyToOpen))
             return true;
 
         return false;

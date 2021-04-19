@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
+  player: {fileID: 0}
   playerInteraction: {fileID: 0}
   spiritController: {fileID: 0}
 --- !u!114 &4410596142451890527
@@ -62,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogBox: {fileID: 0}
+  dialogName: {fileID: 0}
   dialogText: {fileID: 0}
 --- !u!114 &5382122250013562058
 MonoBehaviour:
@@ -76,6 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseUI: {fileID: 0}
+  resumeButton: {fileID: 0}
+  quitButton: {fileID: 0}
 --- !u!114 &4410596142451890526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,7 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cfa656c7f02d149afd7fceae6c970f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  phoneUI: {fileID: 0}
   itemButtonPrefab: {fileID: 3679345561808489813, guid: 8261903219a9c3e41843877468277c52,
     type: 3}
+  phoneUI: {fileID: 0}
+  phoneInventoryUI: {fileID: 0}
+  itemDescriptionText: {fileID: 0}
   inspectTransform: {fileID: 0}

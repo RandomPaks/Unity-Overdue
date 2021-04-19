@@ -3,29 +3,54 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
-[DisallowMultipleComponent]
-public class InventoryItem : MonoBehaviour
+public class Item : MonoBehaviour, IInteractable
 {
-    [SerializeField] string itemName = String.Empty;
-    [SerializeField] string itemDescription = String.Empty;
-    
-    Transform rotationAnchorTransform = null;
+	[SerializeField] string itemName = String.Empty;
+	[SerializeField] string itemDescription = String.Empty;
+	
+	Transform rotationAnchorTransform;
 
-    bool isBeingInspected = false;
-    bool canRotateItem = false;
+	bool isBeingInspected = false;
+	bool canRotateItem = false;
+	
+	public string ItemName => itemName;
+	public string ItemDescription => itemDescription;
 
-    public string ItemName => itemName;
-    public string ItemDescription => itemDescription;
+	protected virtual void Awake()
+	{
+		if (String.IsNullOrWhiteSpace(ItemName))
+		{
+			itemName = name;
+		}
 
-    void Start()
-    {
-        if (itemName == String.Empty)
-        {
-            itemName = name;
-        }
-    }
+		if (String.IsNullOrWhiteSpace(itemDescription))
+		{
+			itemDescription = $"No description for item \"{name}\"!";
+		}
+	}
+	
+	public void Initialize(Transform newRotationAnchorTransform)
+	{
+		rotationAnchorTransform = newRotationAnchorTransform;
+		gameObject.layer = LayerMask.NameToLayer("Inventory");
+	}
 
-    void Update()
+	public void StartHover()
+	{
+
+	}
+
+	public void Interact()
+	{
+		PhoneManager.Instance.AddItem(itemName);
+	}
+
+	public void StopHover()
+	{
+
+	}
+	
+	void Update()
     {
         RotateIfBeingInspected();
     }
@@ -47,12 +72,6 @@ public class InventoryItem : MonoBehaviour
         gameObject.transform.Rotate(rotationAnchorTransform.right, yRot * Time.deltaTime, Space.World);
     }
 
-    public void Initialize(Transform newRotationAnchorTransform)
-    {
-        rotationAnchorTransform = newRotationAnchorTransform;
-        gameObject.layer = LayerMask.NameToLayer("Inventory");
-    }
-
     public IEnumerator StartInspectCoroutine()
     {
         if (isBeingInspected)
@@ -71,7 +90,6 @@ public class InventoryItem : MonoBehaviour
         DOTween.Kill(transform);
         yield return transform.DOScale(Vector3.one, 0.5f).WaitForCompletion();
     }
-
 
     public IEnumerator StopInspectCoroutine()
     {

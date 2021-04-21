@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -43,6 +43,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+        // flashlight flicker variables
+        private Light flashLight;
+        private bool isFlickering = false; // if the flicker animation is currently playing
+
+        private float flickerTicks = 0.0f;
+        private float totalFlickerTicks = 0.0f;
+        private float delayTime = 0.0f; // time in between flicks
+
+        [SerializeField] private float flickerTime; // total time the flashlight will flicker
+        [SerializeField] private float minFlickerTime; // min time in between flicks
+        [SerializeField] private float maxFlickerTime; // max time in between flicks
+
         // Use this for initialization
         private void Start()
         {
@@ -56,6 +68,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            this.flashLight = this.GetComponentInChildren<Light>();
         }
 
         // Update is called once per frame
@@ -81,6 +95,25 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
+
+            if (this.isFlickering)
+            {
+                Debug.Log("Player disabled");
+                if (this.totalFlickerTicks < this.flickerTime)
+                {
+                    if (this.flickerTicks > this.delayTime)
+                    {
+                        this.Flicker();
+                        this.flickerTicks = 0.0f;
+                    }
+                    this.flickerTicks += Time.deltaTime;
+                    this.totalFlickerTicks += Time.deltaTime;
+                }
+                else
+                {
+                    this.flashLight.enabled = false;
+                }
+            }
         }
 
 
@@ -260,6 +293,23 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
+        }
+
+        public void DisableFlashlight(bool disable)
+        {
+            this.isFlickering = disable;
+            if (!disable) // reenable the player flashlight
+            {
+                this.flashLight.enabled = true;
+                this.delayTime = 0.0f;
+                this.totalFlickerTicks = 0.0f;
+            }
+        }
+
+        private void Flicker()
+        {
+            this.flashLight.enabled = !this.flashLight.enabled; 
+            this.delayTime = Random.Range(this.minFlickerTime, this.maxFlickerTime);
         }
     }
 }

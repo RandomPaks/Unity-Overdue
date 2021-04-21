@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Dev/Raina_TestScene.unity
+    guid: 30a645e5f61463e46acfc4c60c6e6b0f
   m_configObjects: {}

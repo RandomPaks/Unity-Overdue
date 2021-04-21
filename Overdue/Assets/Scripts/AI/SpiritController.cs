@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class SpiritController : MonoBehaviour
 {
     NavMeshAgent agent;
-    Transform player;
+    //Transform player;
+    UnityStandardAssets.Characters.FirstPerson.FirstPersonController player;
+    Transform playerTransform; 
 
     [SerializeField] LayerMask groundLayer;
     [SerializeField] LayerMask playerLayer;
@@ -20,15 +22,23 @@ public class SpiritController : MonoBehaviour
     [SerializeField] float timeBetweenAttacks;
     bool alreadyAttacked = false;
 
+    [SerializeField] float disableCooldown;
+    float disableTicks = 0.0f; 
+    bool recentlyDisabled = false;  // if spirit recently disabled
+    bool isPlayerDisabled = false;
+
     // states
     [SerializeField] float sightRange;
     [SerializeField] float attackRange;
+    [SerializeField] float disableRange; 
     bool playerInSightRange = false;
-    bool playerInAttackRange = false; 
+    bool playerInAttackRange = false;
+    bool playerInDisableRange = false;
 
     void Awake()
     {
-        this.player = GameObject.FindGameObjectWithTag("Player").transform;
+        this.player = GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
+        this.playerTransform = this.player.transform;
         this.agent = GetComponent<NavMeshAgent>();
     }
 
@@ -43,6 +53,7 @@ public class SpiritController : MonoBehaviour
     {
         this.playerInSightRange = Physics.CheckSphere(this.transform.position, this.sightRange, playerLayer);
         this.playerInAttackRange = Physics.CheckSphere(this.transform.position, this.attackRange, playerLayer);
+        
 
         if (!this.playerInSightRange && !this.playerInAttackRange)
         {
@@ -56,6 +67,17 @@ public class SpiritController : MonoBehaviour
         {
             this.AttackState();
         }
+
+        this.playerInDisableRange = Physics.CheckSphere(this.transform.position, this.disableRange, playerLayer);
+        if (this.playerInDisableRange && !this.isPlayerDisabled)
+        {
+            this.DisablePlayerItems();
+        }
+        else if (!this.playerInDisableRange && this.isPlayerDisabled)
+        {
+            this.EnablePlayerItems();
+        }
+        
     }
 
     private void PatrolState()
@@ -92,7 +114,7 @@ public class SpiritController : MonoBehaviour
 
     private void ChaseState()
     {
-        this.agent.SetDestination(this.player.position);
+        this.agent.SetDestination(this.playerTransform.position);
     }
 
     private void AttackState()
@@ -100,7 +122,7 @@ public class SpiritController : MonoBehaviour
         // stop moving
         this.agent.SetDestination(this.transform.position);
 
-        this.transform.LookAt(this.player);
+        this.transform.LookAt(this.playerTransform);
 
         if (!this.alreadyAttacked)
         {
@@ -108,6 +130,20 @@ public class SpiritController : MonoBehaviour
             this.alreadyAttacked = true;
             Invoke("ResetAttack", this.timeBetweenAttacks);
         }
+    }
+
+    private void DisablePlayerItems()
+    {
+        PhoneManager.Instance.isDisabled = true;
+        this.player.DisableFlashlight(true);
+        this.isPlayerDisabled = true;
+    }
+    
+    private void EnablePlayerItems()
+    {
+        PhoneManager.Instance.isDisabled = false;
+        this.player.DisableFlashlight(false);
+        this.isPlayerDisabled = false;
     }
 
     private void ResetAttack()
@@ -121,5 +157,7 @@ public class SpiritController : MonoBehaviour
         Gizmos.DrawWireSphere(this.transform.position, this.attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(this.transform.position, this.sightRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(this.transform.position, this.disableRange);
     }
 }

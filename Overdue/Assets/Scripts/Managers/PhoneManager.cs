@@ -7,10 +7,10 @@ using UnityEngine;
 public class PhoneManager : MonoBehaviour
 {
 	public static PhoneManager Instance { get; private set; }
-	
+
 	[Header("UI Prefabs")]
 	[SerializeField] InventoryItemButton itemButtonPrefab;
-	
+
 	[Header("UI Instance References")]
 	[SerializeField] GameObject phoneUI;
 	[SerializeField] GameObject phoneInventoryUI;
@@ -23,13 +23,15 @@ public class PhoneManager : MonoBehaviour
 	Item currentInspectingItem = null;
 
 	Coroutine switchInspectingItemCoroutine = null;
-	
+
 	bool isPhone = false;
 	bool isTransitioningIn = false;
 	bool isTransitioningOut = false;
 	bool isInspectingItem = false;
 
 	public List<Item> Inventory => inventory;
+
+	public bool isDisabled = false;
 
 	void Awake()
 	{
@@ -38,7 +40,7 @@ public class PhoneManager : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.E))
+		if (Input.GetKeyDown(KeyCode.E) && !this.isDisabled)
 		{
 			isPhone = !isPhone;
 
@@ -55,7 +57,7 @@ public class PhoneManager : MonoBehaviour
 					StopCoroutine(switchInspectingItemCoroutine);
 					switchInspectingItemCoroutine = null;
 				}
-				
+
 				if (isInspectingItem && !isTransitioningOut)
 				{
 					StopInspectingItem();
@@ -67,7 +69,7 @@ public class PhoneManager : MonoBehaviour
 			}
 		}
 	}
-	
+
 	public void AddItem(string itemName)
 	{
 		GameObject itemObjectPrefab = Resources.Load<GameObject>($"Items/{itemName}");
@@ -112,7 +114,7 @@ public class PhoneManager : MonoBehaviour
 	public void ClearInventory()
 	{
 		inventory.Clear();
-		
+
 		foreach (InventoryItemButton button in phoneInventoryUI.GetComponentsInChildren<InventoryItemButton>())
 		{
 			Destroy(button);
@@ -128,7 +130,7 @@ public class PhoneManager : MonoBehaviour
 			Debug.LogError("Tried to check if player has item but argument is null!");
 			return false;
 		}
-		
+
 		return GetItem(itemInInventory => item == itemInInventory) != null;
 	}
 
@@ -182,9 +184,9 @@ public class PhoneManager : MonoBehaviour
 
 		itemDescriptionText.gameObject.SetActive(true);
 		itemDescriptionText.text = item.ItemDescription;
-			
+
 		yield return StartCoroutine(currentInspectingItem.StartInspectCoroutine());
-		
+
 		isTransitioningIn = false;
 	}
 
@@ -196,13 +198,13 @@ public class PhoneManager : MonoBehaviour
 	IEnumerator StopInspectingItemCoroutine()
 	{
 		isTransitioningOut = true;
-		
+
 		itemDescriptionText.gameObject.SetActive(false);
 
 		yield return StartCoroutine(currentInspectingItem.StopInspectCoroutine());
 
 		Destroy(currentInspectingItem.gameObject);
-		
+
 		currentInspectingItem = null;
 		isTransitioningOut = false;
 		isInspectingItem = false;
@@ -212,7 +214,7 @@ public class PhoneManager : MonoBehaviour
 	{
 		if (switchInspectingItemCoroutine != null)
 			return;
-		
+
 		switchInspectingItemCoroutine = StartCoroutine(SwitchInspectingItemCoroutine(itemToInspect));
 	}
 

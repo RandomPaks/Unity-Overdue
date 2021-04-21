@@ -31,7 +31,7 @@ public class PauseManager : MonoBehaviour
             else
             {
                 this.pauseUI.SetActive(false);
-                GameManager.Instance.toggleCursorLock(true);
+                //GameManager.Instance.toggleCursorLock(true);
                 GameManager.Instance.SetState(GameState.GAME);
             }
         }
@@ -42,7 +42,7 @@ public class PauseManager : MonoBehaviour
     {
         this.pauseUI.SetActive(false);
         this.isPaused = false;
-        GameManager.Instance.toggleCursorLock(true);
+        //GameManager.Instance.toggleCursorLock(true);
         GameManager.Instance.SetState(GameState.GAME);
     }
 

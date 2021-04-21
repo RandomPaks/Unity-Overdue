@@ -63,6 +63,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
+            else
+            {
+                Debug.Log("Cursor lock");
+            }
         }
 
         public void UpdateCursorLock()

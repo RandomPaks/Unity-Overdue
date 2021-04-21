@@ -46,7 +46,11 @@ public class GameManager : MonoBehaviour
         {
             this.playerController.HandleUpdate();
             this.playerInteraction.HandleUpdate();
-            // this.spiritController.HandleUpdate();
+            if (this.spiritController != null)
+            {
+                this.spiritController.HandleUpdate();
+            }
+            
         }   
         else if (this.state == GameState.DIALOG)
         {
@@ -65,6 +69,11 @@ public class GameManager : MonoBehaviour
     public void SetState(GameState state)
     {
         this.state = state; 
+        if (state == GameState.GAME)
+        {
+            this.toggleCursorLock(true);
+            
+        }
     }
 
     public void toggleCursorLock(bool toggle)

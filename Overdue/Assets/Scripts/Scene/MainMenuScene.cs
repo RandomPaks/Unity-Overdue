@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using DG.Tweening;
 
 public class MainMenuScene : MonoBehaviour
 {
-    //Only needs one text to get the font shader
     [SerializeField] TMP_Text newGame, loadGame, exit; 
 
     void Start()

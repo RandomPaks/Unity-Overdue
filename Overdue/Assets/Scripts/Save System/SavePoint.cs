@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [DisallowMultipleComponent]
-public class SavePoint : MonoBehaviour, IInteractable
+public class SavePoint : MonoBehaviour
 {
 	[SerializeField] Transform spawnTransform;
 
@@ -12,19 +12,9 @@ public class SavePoint : MonoBehaviour, IInteractable
 			spawnTransform = transform;
 		}
 	}
-	
-	public void StartHover()
-	{
-		
-	}
-	
-	public void Interact()
+
+	public void Save()
 	{
 		SaveManager.Instance.Save(0, spawnTransform);
-	}
-	
-	public void StopHover()
-	{
-		
 	}
 }

@@ -485,6 +485,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 252578221}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &735927314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 735927314, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5678097828613532133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7268094bb9e8c5049a07dac03c447501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &758360898
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,7 +879,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click this to save
+  m_text: Cat
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1419,6 +1431,21 @@ PrefabInstance:
       propertyPath: itemDescriptionText
       value: 
       objectReference: {fileID: 5678097828613532134}
+    - target: {fileID: 4410596142451890527, guid: 57e9d04712eec43499c0a515375fdd0b,
+        type: 3}
+      propertyPath: dialogBox
+      value: 
+      objectReference: {fileID: 5678097828613532139}
+    - target: {fileID: 4410596142451890527, guid: 57e9d04712eec43499c0a515375fdd0b,
+        type: 3}
+      propertyPath: dialogName
+      value: 
+      objectReference: {fileID: 5678097828613532137}
+    - target: {fileID: 4410596142451890527, guid: 57e9d04712eec43499c0a515375fdd0b,
+        type: 3}
+      propertyPath: dialogText
+      value: 
+      objectReference: {fileID: 5678097828613532138}
     - target: {fileID: 5382122250013562058, guid: 57e9d04712eec43499c0a515375fdd0b,
         type: 3}
       propertyPath: pauseUI
@@ -1560,8 +1587,13 @@ PrefabInstance:
     - target: {fileID: 4976353847893717562, guid: f922923e7e6a3d240ac6440175680847,
         type: 3}
       propertyPath: m_Name
-      value: Save Point
+      value: Cat
       objectReference: {fileID: 0}
+    - target: {fileID: 6385879123179901591, guid: f922923e7e6a3d240ac6440175680847,
+        type: 3}
+      propertyPath: savePromptUI
+      value: 
+      objectReference: {fileID: 735927314}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f922923e7e6a3d240ac6440175680847, type: 3}
 --- !u!1001 &5678097828613532133
@@ -1698,6 +1730,36 @@ MonoBehaviour:
 --- !u!1 &5678097828613532135 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2126248662917632537, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5678097828613532133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5678097828613532137 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7124733705703124838, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5678097828613532133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5678097828613532138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5678097829713953827, guid: 58d328271e57b954cb5a5001ac80fbe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 5678097828613532133}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &5678097828613532139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5678097828297798406, guid: 58d328271e57b954cb5a5001ac80fbe7,
     type: 3}
   m_PrefabInstance: {fileID: 5678097828613532133}
   m_PrefabAsset: {fileID: 0}

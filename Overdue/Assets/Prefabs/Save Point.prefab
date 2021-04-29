@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4976353847893717557}
   - component: {fileID: 4976353847893717556}
   - component: {fileID: 4976353847893717563}
+  - component: {fileID: 6385879123179901591}
   - component: {fileID: 4976353847893717559}
   m_Layer: 0
   m_Name: Save Point
@@ -125,6 +126,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6385879123179901591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4976353847893717562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5556da1ce6057c94ab6b0c0e507b182a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  savePromptUI: {fileID: 0}
+  saveDialog:
+    lines:
+    - Meow...
 --- !u!114 &4976353847893717559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,5 +154,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f6c6e78cc3951f449b6e60048c3cca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnManager: {fileID: 11400000, guid: 48d9f883fafc3db49b8a5488623a4781, type: 2}
   spawnTransform: {fileID: 4976353846688074661}

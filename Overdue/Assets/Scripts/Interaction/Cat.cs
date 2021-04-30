@@ -31,16 +31,12 @@ public class Cat : MonoBehaviour, IInteractable
 
 	void OnDialogComplete()
 	{
-		StartCoroutine(SavePromptCoroutine());
+		savePromptUI.Show(OnPlayerChosen);
 	}
-
-	IEnumerator SavePromptCoroutine()
+	
+	void OnPlayerChosen(bool answer)
 	{
-		savePromptUI.Show();
-		yield return new WaitUntil(() => savePromptUI.HasPlayerChosen);
-		savePromptUI.Hide();
-
-		if (savePromptUI.WillSave)
+		if (answer)
 		{
 			savePoint.Save();
 		}

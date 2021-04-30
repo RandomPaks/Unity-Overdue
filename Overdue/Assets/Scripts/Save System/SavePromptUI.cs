@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +7,8 @@ public class SavePromptUI : MonoBehaviour
 {
     [SerializeField] Button yesButton;
     [SerializeField] Button noButton;
-    
-    public bool WillSave { get; private set; }
-    public bool HasPlayerChosen { get; private set; }
+
+    Action<bool> onPlayerChosen;
 
     void Awake()
     {
@@ -18,17 +17,13 @@ public class SavePromptUI : MonoBehaviour
         noButton.onClick.RemoveListener(OnClickedNo);
         noButton.onClick.AddListener(OnClickedNo);
     }
-
-    void Start()
-    {
-        HasPlayerChosen = false;
-    }
-
-    public void Show()
+    
+    public void Show(Action<bool> onPlayerChosenCallback)
     {
         gameObject.SetActive(true);
-        HasPlayerChosen = false;
         
+        onPlayerChosen = onPlayerChosenCallback;
+
         GameManager.Instance.SetState(GameState.PAUSED);
         GameManager.Instance.toggleCursorLock(false);
     }
@@ -38,19 +33,18 @@ public class SavePromptUI : MonoBehaviour
         GameManager.Instance.toggleCursorLock(true);
         GameManager.Instance.SetState(GameState.GAME);
         
-        HasPlayerChosen = false;
         gameObject.SetActive(false);
     }
 
     void OnClickedYes()
     {
-        WillSave = true;
-        HasPlayerChosen = true;
+        onPlayerChosen?.Invoke(true);
+        Hide();
     }
 
     void OnClickedNo()
     {
-        WillSave = false;
-        HasPlayerChosen = true;
+        onPlayerChosen?.Invoke(false);
+        Hide();
     }
 }

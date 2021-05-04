@@ -126,7 +126,8 @@ public class SpiritController : MonoBehaviour
 
         if (!this.alreadyAttacked)
         {
-            Debug.Log("Attacked Player");
+            player.TakeDamage();
+            //Debug.Log("Attacked Player");
             this.alreadyAttacked = true;
             Invoke("ResetAttack", this.timeBetweenAttacks);
         }

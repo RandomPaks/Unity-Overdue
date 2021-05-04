@@ -55,6 +55,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float minFlickerTime; // min time in between flicks
         [SerializeField] private float maxFlickerTime; // max time in between flicks
 
+        private float health = 100.0f;
+        private float sanity = 100.0f;
+        [SerializeField, Min(0)] float sanityRange = 15f;
+
         // Use this for initialization
         private void Start()
         {
@@ -114,6 +118,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     this.flashLight.enabled = false;
                 }
             }
+            PlayerLook();
         }
 
 
@@ -248,6 +253,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 
             }
 
+            if (Input.GetKeyDown(KeyCode.F) && !isFlickering)
+            {
+                this.flashLight.enabled = !this.flashLight.enabled;
+            }
+
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
@@ -310,6 +320,27 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             this.flashLight.enabled = !this.flashLight.enabled; 
             this.delayTime = Random.Range(this.minFlickerTime, this.maxFlickerTime);
+        }
+
+        public void TakeDamage()
+        {
+            health -= 33.0f;
+            Debug.Log("Health:" + health);
+        }
+
+        private void PlayerLook()
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, sanityRange))
+            {
+                if (hit.collider.tag == "Spirit") LoseSanity();
+            }
+        }
+
+        public void LoseSanity()
+        {
+            sanity -= 0.1f;
+            Debug.Log("Sanity:" + sanity);
         }
     }
 }

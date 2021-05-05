@@ -63,8 +63,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float sanity = 100.0f;
         [SerializeField, UnityEngine.Min(0)] float sanityRange = 15f;
         [SerializeField] PostProcessVolume postProcessVolume;
-        ChromaticAberration chromaticAberration = null;
-        Vignette vignette = null;
+        private ChromaticAberration chromaticAberration = null;
+        private Vignette vignette = null;
+        private Grain grain = null;
 
         // Use this for initialization
         private void Start()
@@ -84,6 +85,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             postProcessVolume.profile.TryGetSettings(out chromaticAberration);
             postProcessVolume.profile.TryGetSettings(out vignette);
+            postProcessVolume.profile.TryGetSettings(out grain);
         }
 
         // Update is called once per frame
@@ -129,8 +131,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.F) && !isFlickering)
+            {
+                this.flashLight.enabled = !this.flashLight.enabled;
+            }
+
             //health
-            if(health < 100.0f) health += 0.025f;
+            if (health < 100.0f) health += 0.025f;
 
             Color tempColor = healthScreen.color;
             tempColor.a = 1.0f - (health / 100.0f);
@@ -143,6 +150,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             chromaticAberration.intensity.value = 2.0f - (sanity / 50.0f);
             vignette.intensity.value = 0.5f - (sanity / 200.0f);
+            grain.intensity.value = 1.0f - (sanity / 100.0f);
 
             //Debug.Log("Health:" + health);
             //Debug.Log("Sanity:" + sanity);
@@ -279,12 +287,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 
             }
-
-            if (Input.GetKeyDown(KeyCode.F) && !isFlickering)
-            {
-                this.flashLight.enabled = !this.flashLight.enabled;
-            }
-
+                    
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running

@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
@@ -56,8 +58,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private float maxFlickerTime; // max time in between flicks
 
         private float health = 100.0f;
+        [SerializeField] Image healthScreen;
+
         private float sanity = 100.0f;
-        [SerializeField, Min(0)] float sanityRange = 15f;
+        [SerializeField, UnityEngine.Min(0)] float sanityRange = 15f;
+        [SerializeField] PostProcessVolume postProcessVolume;
+        ChromaticAberration chromaticAberration = null;
+        Vignette vignette = null;
 
         // Use this for initialization
         private void Start()
@@ -74,6 +81,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             this.flashLight = this.GetComponentInChildren<Light>();
+
+            postProcessVolume.profile.TryGetSettings(out chromaticAberration);
+            postProcessVolume.profile.TryGetSettings(out vignette);
         }
 
         // Update is called once per frame
@@ -118,7 +128,24 @@ namespace UnityStandardAssets.Characters.FirstPerson
                     this.flashLight.enabled = false;
                 }
             }
-            PlayerLook();
+
+            //health
+            if(health < 100.0f) health += 0.025f;
+
+            Color tempColor = healthScreen.color;
+            tempColor.a = 1.0f - (health / 100.0f);
+            healthScreen.color = tempColor;
+
+
+            //sanity
+            SanityCheck();
+            if (sanity < 100.0f) sanity += 0.025f;
+
+            chromaticAberration.intensity.value = 2.0f - (sanity / 50.0f);
+            vignette.intensity.value = 0.5f - (sanity / 200.0f);
+
+            //Debug.Log("Health:" + health);
+            //Debug.Log("Sanity:" + sanity);
         }
 
 
@@ -324,23 +351,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         public void TakeDamage()
         {
-            health -= 33.0f;
-            Debug.Log("Health:" + health);
+            health -= 25.0f;
         }
 
-        private void PlayerLook()
+        private void SanityCheck()
         {
             RaycastHit hit;
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, sanityRange))
             {
-                if (hit.collider.tag == "Spirit") LoseSanity();
+                if (hit.collider.tag == "Spirit") sanity -= 0.1f;
             }
-        }
-
-        public void LoseSanity()
-        {
-            sanity -= 0.1f;
-            Debug.Log("Sanity:" + sanity);
         }
     }
 }

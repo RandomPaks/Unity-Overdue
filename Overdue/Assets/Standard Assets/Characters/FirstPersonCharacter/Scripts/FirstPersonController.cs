@@ -131,8 +131,13 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.F) && !isFlickering)
+            {
+                this.flashLight.enabled = !this.flashLight.enabled;
+            }
+
             //health
-            if(health < 100.0f) health += 0.025f;
+            if (health < 100.0f) health += 0.025f;
 
             Color tempColor = healthScreen.color;
             tempColor.a = 1.0f - (health / 100.0f);
@@ -282,12 +287,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 
             }
-
-            if (Input.GetKeyDown(KeyCode.F) && !isFlickering)
-            {
-                this.flashLight.enabled = !this.flashLight.enabled;
-            }
-
+                    
 #if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running

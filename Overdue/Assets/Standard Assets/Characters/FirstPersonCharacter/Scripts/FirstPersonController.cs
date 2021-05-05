@@ -63,8 +63,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float sanity = 100.0f;
         [SerializeField, UnityEngine.Min(0)] float sanityRange = 15f;
         [SerializeField] PostProcessVolume postProcessVolume;
-        ChromaticAberration chromaticAberration = null;
-        Vignette vignette = null;
+        private ChromaticAberration chromaticAberration = null;
+        private Vignette vignette = null;
+        private Grain grain = null;
 
         // Use this for initialization
         private void Start()
@@ -84,6 +85,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             postProcessVolume.profile.TryGetSettings(out chromaticAberration);
             postProcessVolume.profile.TryGetSettings(out vignette);
+            postProcessVolume.profile.TryGetSettings(out grain);
         }
 
         // Update is called once per frame
@@ -143,6 +145,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             chromaticAberration.intensity.value = 2.0f - (sanity / 50.0f);
             vignette.intensity.value = 0.5f - (sanity / 200.0f);
+            grain.intensity.value = 1.0f - (sanity / 100.0f);
 
             //Debug.Log("Health:" + health);
             //Debug.Log("Sanity:" + sanity);

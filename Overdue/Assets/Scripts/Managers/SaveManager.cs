@@ -10,7 +10,7 @@ public class SaveManager : MonoBehaviour
 {
 	public static SaveManager Instance { get; private set; }
 	
-	GameSave gameSave;
+	GameSave gameToLoad;
 
 	void Awake()
 	{
@@ -56,26 +56,42 @@ public class SaveManager : MonoBehaviour
 	[ContextMenu("Load From First Save Slot")]
 	public void LoadFromFirstSaveSlot() => Load(0);
 
-	public void Load(int index)
+	public GameSave Load(int index)
 	{
 		string filePath = GetGameSaveFullPath(index);
+
+		if (!File.Exists(filePath))
+		{
+			Debug.Log($"No save file. Index: {index}");
+			return null;
+		}
 		
 		BinaryFormatter bf = new BinaryFormatter();
 		FileStream file = File.Open(filePath, FileMode.Open);
 		string jsonGameSave = (string)bf.Deserialize(file);
 		file.Close();
+		
+		if (string.IsNullOrWhiteSpace(jsonGameSave))
+		{
+			Debug.LogError($"Failed to open file! Index: {index}");
+			return null;
+		}
 
 		GameSave loadedGameSave = JsonUtility.FromJson<GameSave>(jsonGameSave);
 
 		if (loadedGameSave == null)
 		{
-			Debug.LogError($"Failed to load save! Index: {index}");
-			return;
+			Debug.LogError($"Failed to parse JSON game save! Index: {index}");
+			return null;
 		}
 
-		gameSave = loadedGameSave;
-		
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		return loadedGameSave;
+	}
+
+	public void LoadGameSave(GameSave gameSave)
+	{
+		gameToLoad = gameSave;
+		SceneManager.LoadScene("Game Scene");
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 	
@@ -89,17 +105,17 @@ public class SaveManager : MonoBehaviour
 		GameObject playerGO = GameManager.Instance.Player;
 		CharacterController playerController = playerGO.GetComponent<CharacterController>();
 		playerController.enabled = false;
-		playerGO.transform.SetPositionAndRotation(gameSave.SpawnPos, gameSave.SpawnRot);
+		playerGO.transform.SetPositionAndRotation(gameToLoad.SpawnPos, gameToLoad.SpawnRot);
 		playerController.enabled = true;
 
 		PhoneManager.Instance.ClearInventory();
-		foreach (string itemName in gameSave.InventoryItems)
+		foreach (string itemName in gameToLoad.InventoryItems)
 		{
 			PhoneManager.Instance.AddItem(itemName);
 		}
 
 		SceneManager.sceneLoaded -= OnSceneLoaded;
 		
-		Debug.Log($"Game loaded! {gameSave}");
+		Debug.Log($"Game loaded! {gameToLoad}");
 	}
 }

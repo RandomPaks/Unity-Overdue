@@ -40,7 +40,7 @@ public class PhoneManager : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.E) && !this.isDisabled)
+		if (Input.GetKeyDown(KeyCode.E) && !this.isDisabled && !PauseManager.Instance.isPaused)
 		{
 			isPhone = !isPhone;
 
@@ -48,7 +48,7 @@ public class PhoneManager : MonoBehaviour
 			{
 				this.phoneUI.SetActive(true);
 				GameManager.Instance.toggleCursorLock(false);
-				GameManager.Instance.SetState(GameState.PAUSED);
+				GameManager.Instance.SetState(GameState.PHONE);
 			}
 			else
 			{

@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
-    bool isPaused = false;
+    public bool isPaused = false;
     [SerializeField] GameObject pauseUI;
-    [SerializeField] Button resumeButton;
-    [SerializeField] Button quitButton;
 
     public static PauseManager Instance { get; private set; }
+
+    private GameState prevState;
 
     void Awake()
     {
@@ -26,13 +26,14 @@ public class PauseManager : MonoBehaviour
             {
                 this.pauseUI.SetActive(true);
                 GameManager.Instance.toggleCursorLock(false);
+                prevState = GameManager.Instance.GetState();
                 GameManager.Instance.SetState(GameState.PAUSED);
             }
             else
             {
                 this.pauseUI.SetActive(false);
                 //GameManager.Instance.toggleCursorLock(true);
-                GameManager.Instance.SetState(GameState.GAME);
+                GameManager.Instance.SetState(prevState);
             }
         }
     }
@@ -45,9 +46,4 @@ public class PauseManager : MonoBehaviour
         //GameManager.Instance.toggleCursorLock(true);
         GameManager.Instance.SetState(GameState.GAME);
     }
-
-    public void OnEnterResumeButton() => resumeButton.GetComponentInChildren<Text>().fontSize = 60;
-    public void OnExitResumeButton() => resumeButton.GetComponentInChildren<Text>().fontSize = 48;
-    public void OnEnterQuitButton() => quitButton.GetComponentInChildren<Text>().fontSize = 60;
-    public void OnExitQuitButton() => quitButton.GetComponentInChildren<Text>().fontSize = 48;
 }

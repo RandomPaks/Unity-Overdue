@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // add more if necessary
-public enum GameState { GAME, PAUSED, DIALOG }
+public enum GameState { GAME, PAUSED, DIALOG, PHONE}
 
 public class GameManager : MonoBehaviour
 {
@@ -56,6 +56,13 @@ public class GameManager : MonoBehaviour
         {
             DialogManager.Instance.HandleUpdate();
         }
+        else if(this.state == GameState.PHONE)
+        {
+            if (this.spiritController != null)
+            {
+                this.spiritController.HandleUpdate();
+            }
+        }
     }
 
     void FixedUpdate()
@@ -75,6 +82,8 @@ public class GameManager : MonoBehaviour
             
         }
     }
+
+    public GameState GetState() => this.state;
 
     public void toggleCursorLock(bool toggle)
     {

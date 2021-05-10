@@ -17,4 +17,6 @@ public class MainMenuScene : MonoBehaviour
         loadGame.fontMaterial.DOFloat(0.0f, "_FaceDilate", secs);
         exit.fontMaterial.DOFloat(0.0f, "_FaceDilate", secs);
     }
+
+
 }

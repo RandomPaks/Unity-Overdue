@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 50ba987891e40a94a959a3f264c3fc9e
+guid: 259b5776e848a3b4d9486e57316e364b
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Phone_On-colormap
-    second: {fileID: 2800000, guid: f0c1d2fd6ba236d48971c69b2506478a, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

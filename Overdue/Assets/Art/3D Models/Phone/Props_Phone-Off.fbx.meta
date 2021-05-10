@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: d74ec678c255df8448c8cefc28f215b8
+guid: fb9e5032f208a904db2da1a0e05e7154
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Phone_Off-colormap
-    second: {fileID: 2800000, guid: f02fb7f692fef2f4f9ae7ba3d3693a72, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

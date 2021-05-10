@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: School_Walls-white-color
-    second: {fileID: 2800000, guid: 7727b69329f681442ae31cd86f3f47b1, type: 3}
+    second: {fileID: 2800000, guid: 576f9c941e89eb343bb274c72e1a7965, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

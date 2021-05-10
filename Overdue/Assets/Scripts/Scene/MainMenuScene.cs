@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using DG.Tweening;
 
@@ -18,5 +19,7 @@ public class MainMenuScene : MonoBehaviour
         exit.fontMaterial.DOFloat(0.0f, "_FaceDilate", secs);
     }
 
+    public void OnNewGameClick() => SceneManager.LoadScene("Game Scene");
 
+    public void OnExitClick() => Application.Quit();
 }

@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -46,4 +44,6 @@ public class PauseManager : MonoBehaviour
         //GameManager.Instance.toggleCursorLock(true);
         GameManager.Instance.SetState(GameState.GAME);
     }
+
+    public void OnQuitClick() => SceneManager.LoadScene("Main Menu Scene");
 }

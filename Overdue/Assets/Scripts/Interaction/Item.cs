@@ -3,18 +3,23 @@ using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
+public enum ItemTypes { None, Key, Note }
 public class Item : MonoBehaviour, IInteractable
 {
-	[SerializeField] string itemName = String.Empty;
+
+    [SerializeField] string itemName = String.Empty;
 	[SerializeField] string itemDescription = String.Empty;
-	
-	Transform rotationAnchorTransform;
+    [SerializeField] ItemTypes itemType;
+
+
+    Transform rotationAnchorTransform;
 
 	bool isBeingInspected = false;
 	bool canRotateItem = false;
 	
 	public string ItemName => itemName;
 	public string ItemDescription => itemDescription;
+    public ItemTypes ItemType => itemType;
 
 	protected virtual void Awake()
 	{
@@ -27,6 +32,10 @@ public class Item : MonoBehaviour, IInteractable
 		{
 			itemDescription = $"No description for item \"{name}\"!";
 		}
+        if (itemType == ItemTypes.None)
+        {
+            Debug.LogWarning("Item: " + itemName + " has no itemtype!");
+        }
 	}
 	
 	public void Initialize(Transform newRotationAnchorTransform)

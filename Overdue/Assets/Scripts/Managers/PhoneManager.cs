@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhoneManager : MonoBehaviour
 {
@@ -13,7 +14,11 @@ public class PhoneManager : MonoBehaviour
 
 	[Header("UI Instance References")]
 	[SerializeField] GameObject phoneUI;
-	[SerializeField] GameObject phoneInventoryUI;
+	[SerializeField] GameObject keyInventoryUI;
+	[SerializeField] GameObject notesInventoryUI;
+	[SerializeField] Toggle keyToggle;
+	[SerializeField] Toggle noteToggle;
+
 	[SerializeField] TMP_Text itemDescriptionText;
 
 	[Header("Item Inspecting")]
@@ -92,8 +97,16 @@ public class PhoneManager : MonoBehaviour
 
 		Item item = itemObjectPrefab.GetComponent<Item>();
 		inventory.Add(item);
+		InventoryItemButton inventoryItemButton = null;
+		if (item.ItemType == ItemTypes.Key)
+        {
+			inventoryItemButton = Instantiate(itemButtonPrefab, keyInventoryUI.transform);
+		}
+		else if (item.ItemType == ItemTypes.Note)
+        {
+			inventoryItemButton = Instantiate(itemButtonPrefab, notesInventoryUI.transform);
+		}
 
-		InventoryItemButton inventoryItemButton = Instantiate(itemButtonPrefab, phoneInventoryUI.transform);
 		inventoryItemButton.Initialize(item);
 	}
 
@@ -101,7 +114,15 @@ public class PhoneManager : MonoBehaviour
 	{
 		inventory.Remove(item);
 
-		foreach (InventoryItemButton button in phoneInventoryUI.GetComponentsInChildren<InventoryItemButton>())
+		foreach (InventoryItemButton button in keyInventoryUI.GetComponentsInChildren<InventoryItemButton>())
+		{
+			if (button.Item == item)
+			{
+				Destroy(button);
+				break;
+			}
+		}
+		foreach (InventoryItemButton button in notesInventoryUI.GetComponentsInChildren<InventoryItemButton>())
 		{
 			if (button.Item == item)
 			{
@@ -115,7 +136,11 @@ public class PhoneManager : MonoBehaviour
 	{
 		inventory.Clear();
 
-		foreach (InventoryItemButton button in phoneInventoryUI.GetComponentsInChildren<InventoryItemButton>())
+		foreach (InventoryItemButton button in keyInventoryUI.GetComponentsInChildren<InventoryItemButton>())
+		{
+			Destroy(button);
+		}
+		foreach (InventoryItemButton button in notesInventoryUI.GetComponentsInChildren<InventoryItemButton>())
 		{
 			Destroy(button);
 		}
@@ -223,5 +248,39 @@ public class PhoneManager : MonoBehaviour
 		yield return StartCoroutine(StopInspectingItemCoroutine());
 		yield return StartCoroutine(StartInspectCoroutine(itemToInspect));
 		switchInspectingItemCoroutine = null;
+	}
+
+	public void KeyToggler()
+    {
+		if(currentInspectingItem != null && !isTransitioningOut)
+        {
+			StopInspectingItem();
+		}
+        if (keyInventoryUI.activeSelf)
+        {
+			keyInventoryUI.SetActive(false);
+        }
+        else
+        {
+			keyInventoryUI.SetActive(true);
+			notesInventoryUI.SetActive(false);
+		}
+    }
+
+	public void NotesToggler()
+	{
+		if (currentInspectingItem != null && !isTransitioningOut)
+		{
+			StopInspectingItem();
+		}
+		if (notesInventoryUI.activeSelf)
+		{
+			notesInventoryUI.SetActive(false);
+		}
+		else
+		{
+			notesInventoryUI.SetActive(true);
+			keyInventoryUI.SetActive(false);
+		}
 	}
 }

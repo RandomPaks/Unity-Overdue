@@ -27,12 +27,20 @@ public class VisualCue : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         Color color = image.color;
-        color.a = (distance > maxDistance) ? 0f : 1f;
+
+        if (distance > maxDistance)
+        {
+            color.a = 0f;
+        }
+        else
+        {
+            Vector3 direction = (Camera.main.transform.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f);
+
+            color.a = 1f;
+        }
         image.color = color;
         text.color = color;
-
-        Vector3 direction = (Camera.main.transform.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f);
     }
 }

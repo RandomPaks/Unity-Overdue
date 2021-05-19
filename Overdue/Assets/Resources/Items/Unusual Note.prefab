@@ -106,6 +106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccdea85447bd1214c8bbee283bef95c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 474567610379956765}
   itemName: Unusual Note
   itemDescription: It says "INDIE is dead".
+  itemType: 2

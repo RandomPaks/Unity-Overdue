@@ -37,5 +37,6 @@ public class DialogEventSequence : AEventSequence
     void OnFinishDialog()
     {
         Debug.Log("Finished");
+        this.gameObject.SetActive(false);
     }
 }

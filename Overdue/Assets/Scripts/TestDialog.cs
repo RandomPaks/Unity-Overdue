@@ -24,7 +24,7 @@ public class TestDialog : MonoBehaviour, IInteractable
 
     void IInteractable.Interact()
     {
-        CGDialogs.Instance.BeginDialog();
+        //CGDialogs.Instance.BeginDialog();
     }
 
     void IInteractable.StartHover()

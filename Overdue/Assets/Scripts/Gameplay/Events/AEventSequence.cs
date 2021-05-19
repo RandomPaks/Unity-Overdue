@@ -20,7 +20,7 @@ public abstract class AEventSequence : MonoBehaviour
 
             this.PlayEvent();
 
-            this.gameObject.SetActive(false);
+            
         }
     }
 }

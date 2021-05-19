@@ -28,7 +28,7 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator ShowDialog(Dialog dialog, Action onFinished = null)
     {
-
+        yield return new WaitForEndOfFrame();
         Debug.Log("Dialog");
         this.OnShowDialog?.Invoke();
 
@@ -39,7 +39,7 @@ public class DialogManager : MonoBehaviour
         this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
         this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
         //Debug.Log(this.dialog.Lines[this.currentLine].Line);
-        yield return new WaitForEndOfFrame();
+        //yield return new WaitForEndOfFrame();
     }
 
     public void HandleUpdate()

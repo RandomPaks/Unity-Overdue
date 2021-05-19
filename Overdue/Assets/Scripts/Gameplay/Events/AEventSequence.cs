@@ -8,7 +8,7 @@ public abstract class AEventSequence : MonoBehaviour
 
     public abstract void PlayEvent(); 
 
-    /*void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
@@ -22,5 +22,5 @@ public abstract class AEventSequence : MonoBehaviour
 
             this.gameObject.SetActive(false);
         }
-    }*/
+    }
 }

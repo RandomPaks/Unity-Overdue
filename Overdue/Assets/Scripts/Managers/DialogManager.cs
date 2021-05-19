@@ -28,8 +28,9 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator ShowDialog(Dialog dialog, Action onFinished = null)
     {
-        Debug.Log("Dialog");
+        
         yield return new WaitForEndOfFrame();
+        Debug.Log("Dialog");
         this.OnShowDialog?.Invoke();
 
         this.IsShowing = true;

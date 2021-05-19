@@ -6,26 +6,36 @@ public class DialogEventSequence : AEventSequence
 {
     [SerializeField] Dialog dialog; 
 
-    public override void PlayEvent()
-    {
-        //CGDialogs.Instance.BeginDialog();
-        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog));
-        Debug.Log(this.dialog.Lines[0].Line);
-    }
-
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
+            this.PlayEvent();
 
             if (this.nextEvent != null)
             {
                 this.nextEvent.gameObject.SetActive(true);
             }
 
-            this.PlayEvent();
-
             this.gameObject.SetActive(false);
         }
+    }*/
+
+    public override void PlayEvent()
+    {
+        //CGDialogs.Instance.BeginDialog();
+        //StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog));
+        this.ShowDialog();
+        Debug.Log(this.dialog.Lines[0].Line);
+    }
+
+    void ShowDialog()
+    {
+        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog, this.OnFinishDialog));
+    }
+
+    void OnFinishDialog()
+    {
+        Debug.Log("Finished");
     }
 }

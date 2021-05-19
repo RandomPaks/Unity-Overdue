@@ -24,8 +24,7 @@ public class TestDialog : MonoBehaviour, IInteractable
 
     void IInteractable.Interact()
     {
-        DialogManager.Instance.UpdateDialogName(this.name);
-        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog));
+        CGDialogs.Instance.BeginDialog();
     }
 
     void IInteractable.StartHover()

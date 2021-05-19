@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class Dialog
 {
-    [SerializeField] List<string> lines;
+    [SerializeField] List<DialogLine> lines;
 
-    public List<string> Lines
+    public List<DialogLine> Lines
     {
         get
         {

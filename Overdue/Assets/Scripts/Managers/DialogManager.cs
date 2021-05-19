@@ -28,6 +28,7 @@ public class DialogManager : MonoBehaviour
 
     public IEnumerator ShowDialog(Dialog dialog, Action onFinished = null)
     {
+        Debug.Log("Dialog");
         yield return new WaitForEndOfFrame();
         this.OnShowDialog?.Invoke();
 
@@ -35,7 +36,9 @@ public class DialogManager : MonoBehaviour
         this.dialog = dialog;
         this.dialogBox.SetActive(true);
         this.onDialogFinished = onFinished;
-        this.UpdateDialogText(this.dialog.Lines[this.currentLine]);
+        this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
+        this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
+        //Debug.Log(this.dialog.Lines[this.currentLine].Line);
     }
 
     public void HandleUpdate()
@@ -45,7 +48,8 @@ public class DialogManager : MonoBehaviour
             this.currentLine++;
             if (this.currentLine < this.dialog.Lines.Count)
             {
-                this.UpdateDialogText(this.dialog.Lines[this.currentLine]);
+                this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
+                this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
             }
             else
             {

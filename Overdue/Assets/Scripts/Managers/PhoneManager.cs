@@ -45,7 +45,7 @@ public class PhoneManager : MonoBehaviour
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.E) && !this.isDisabled && !PauseManager.Instance.isPaused)
+		if (Input.GetKeyDown(KeyCode.E) && !this.isDisabled && (GameManager.Instance.GetState() == GameState.GAME || GameManager.Instance.GetState() == GameState.PHONE))
 		{
 			isPhone = !isPhone;
 			flashlightToggle.isOn = flashlight.enabled;

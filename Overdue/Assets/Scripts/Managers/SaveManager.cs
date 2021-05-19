@@ -91,7 +91,8 @@ public class SaveManager : MonoBehaviour
 	public void LoadGameSave(GameSave gameSave)
 	{
 		gameToLoad = gameSave;
-		SceneManager.LoadScene("Game Scene");
+		//SceneManager.LoadScene("Game Scene");
+		LoadingManager.Instance.LoadGame();
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 	

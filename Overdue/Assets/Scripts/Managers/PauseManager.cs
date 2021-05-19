@@ -42,8 +42,8 @@ public class PauseManager : MonoBehaviour
         this.pauseUI.SetActive(false);
         this.isPaused = false;
         //GameManager.Instance.toggleCursorLock(true);
-        GameManager.Instance.SetState(GameState.GAME);
+        GameManager.Instance.SetState(prevState);
     }
 
-    public void OnQuitClick() => SceneManager.LoadScene("Main Menu Scene");
+    public void OnQuitClick() => LoadingManager.Instance.LoadMainMenu();
 }

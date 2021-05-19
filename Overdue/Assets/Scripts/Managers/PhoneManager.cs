@@ -16,8 +16,8 @@ public class PhoneManager : MonoBehaviour
 	[SerializeField] GameObject phoneUI;
 	[SerializeField] GameObject keyInventoryUI;
 	[SerializeField] GameObject notesInventoryUI;
-	[SerializeField] Toggle keyToggle;
-	[SerializeField] Toggle noteToggle;
+	[SerializeField] Toggle flashlightToggle;
+	[SerializeField] Light flashlight;
 
 	[SerializeField] TMP_Text itemDescriptionText;
 
@@ -48,6 +48,7 @@ public class PhoneManager : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.E) && !this.isDisabled && !PauseManager.Instance.isPaused)
 		{
 			isPhone = !isPhone;
+			flashlightToggle.isOn = flashlight.enabled;
 
 			if (isPhone)
 			{

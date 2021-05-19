@@ -131,9 +131,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.F) && !isFlickering)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                this.flashLight.enabled = !this.flashLight.enabled;
+                TurnOnOffFlashlight();
             }
 
             //health
@@ -350,6 +350,11 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             this.flashLight.enabled = !this.flashLight.enabled; 
             this.delayTime = Random.Range(this.minFlickerTime, this.maxFlickerTime);
+        }
+
+        public void TurnOnOffFlashlight() //for ui button
+        {
+            if (!isFlickering) this.flashLight.enabled = !this.flashLight.enabled;
         }
 
         public void TakeDamage()

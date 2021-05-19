@@ -79,7 +79,6 @@ public class GameManager : MonoBehaviour
         if (state == GameState.GAME)
         {
             this.toggleCursorLock(true);
-            
         }
     }
 

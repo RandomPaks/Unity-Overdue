@@ -17,7 +17,6 @@ public class LoadingManager : MonoBehaviour
     {
         Instance = this;
 
-        SceneManager.LoadSceneAsync("Main Menu Scene");
         DontDestroyOnLoad(this);
     }
 
@@ -26,20 +25,20 @@ public class LoadingManager : MonoBehaviour
         if (loadingText.gameObject.active)
         {
             ticks += Time.deltaTime;
-            if (ticks > 0.8f)
+            if (ticks > 0.6f)
             {
                 loadingText.text = "Loading...";
                 ticks = 0.0f;
             }
-            else if (ticks > 0.6f)
+            else if (ticks > 0.45f)
                 loadingText.text = "Loading..";
-            else if (ticks > 0.4f)
+            else if (ticks > 0.3f)
                 loadingText.text = "Loading.";
-            else if (ticks > 0.2f)
+            else if (ticks > 0.15f)
                 loadingText.text = "Loading";
         }
     }
-    
+
     List<AsyncOperation> scenesLoading = new List<AsyncOperation>();
     public void LoadGame()
     {

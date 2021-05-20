@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // add more if necessary
-public enum GameState { GAME, PAUSED, DIALOG, PHONE}
+public enum GameState { GAME, PAUSED, DIALOG, PHONE, CUTSCENE}
 
 public class GameManager : MonoBehaviour
 {

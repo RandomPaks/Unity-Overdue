@@ -10,7 +10,7 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] string itemName = String.Empty;
 	[SerializeField] string itemDescription = String.Empty;
     [SerializeField] ItemTypes itemType;
-
+    [SerializeField] AudioClip pickupItemSound;
 
     Transform rotationAnchorTransform;
 
@@ -36,7 +36,8 @@ public class Item : MonoBehaviour, IInteractable
         {
             Debug.LogWarning("Item: " + itemName + " has no itemtype!");
         }
-	}
+
+    }
 	
 	public void Initialize(Transform newRotationAnchorTransform)
 	{
@@ -50,8 +51,9 @@ public class Item : MonoBehaviour, IInteractable
 	}
 
 	public void Interact()
-	{
-		PhoneManager.Instance.AddItem(itemName);
+    {
+        PhoneManager.Instance.PlaySound(pickupItemSound);
+        PhoneManager.Instance.AddItem(itemName);
         if (this.gameObject.GetComponent<ItemInteractEventSequence>() != null)
         {
             this.gameObject.GetComponent<ItemInteractEventSequence>().PlayEvent();

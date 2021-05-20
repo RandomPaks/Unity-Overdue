@@ -25,7 +25,7 @@ public class VisualCue : MonoBehaviour
 
     void Update()
     {
-        /*float distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+        float distance = Vector3.Distance(transform.position, GameManager.Instance.Player.GetComponentInChildren<Camera>().gameObject.transform.position);
         Color color = image.color;
 
         if (distance > maxDistance)
@@ -41,6 +41,6 @@ public class VisualCue : MonoBehaviour
             color.a = 1f;
         }
         image.color = color;
-        text.color = color;*/
+        text.color = color;
     }
 }

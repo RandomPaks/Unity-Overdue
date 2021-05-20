@@ -2,6 +2,7 @@
 using UnityEngine;
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(AudioSource))]
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] Item keyToOpen;
@@ -9,10 +10,19 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField, Min(0)] float closeDuration = 3f;
     [SerializeField, Min(0)] float remainOpenDuration = 5f;
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip doorOpenSound;
+    [SerializeField] AudioClip doorLockedSound;
+
     Vector3 originalRotation = Vector3.zero;
     
     bool isOpen = false;
     float openTimer = 0f;
+
+    void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     void Start()
     {
@@ -44,14 +54,19 @@ public class Door : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (!IsOpenable())
+        {
+            audioSource.clip = doorLockedSound;
+            audioSource.Play();
             return;
+        }
 
         if (isOpen)
         {
             openTimer = 0f;
             return;
         }
-
+        audioSource.clip = doorOpenSound;
+        audioSource.Play();
         DOTween.Kill(transform);
         transform.DORotate(originalRotation + new Vector3(0f, -90f, 0), openDuration);
         

@@ -297,4 +297,10 @@ public class PhoneManager : MonoBehaviour
 			keyInventoryUI.SetActive(false);
 		}
 	}
+
+	public void PlaySound(AudioClip sound)
+    {
+		audioSource.clip = sound;
+		audioSource.Play();
+    }
 }

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class PhoneManager : MonoBehaviour
 {
 	public static PhoneManager Instance { get; private set; }
@@ -38,9 +39,15 @@ public class PhoneManager : MonoBehaviour
 
 	public bool isDisabled = false;
 
+	AudioSource audioSource;
+	[SerializeField] AudioClip onPhoneSound;
+	[SerializeField] AudioClip offPhoneSound;
+
 	void Awake()
 	{
 		Instance = this;
+
+		audioSource = GetComponent<AudioSource>();
 	}
 
 	void Update()
@@ -50,6 +57,9 @@ public class PhoneManager : MonoBehaviour
 			isPhone = !isPhone;
 			flashlightToggle.isOn = flashlight.enabled;
 
+			audioSource.clip = onPhoneSound;
+			audioSource.Play();
+
 			if (isPhone)
 			{
 				this.phoneUI.SetActive(true);
@@ -58,6 +68,9 @@ public class PhoneManager : MonoBehaviour
 			}
 			else
 			{
+				audioSource.clip = offPhoneSound;
+				audioSource.Play();
+
 				if (switchInspectingItemCoroutine != null)
 				{
 					StopCoroutine(switchInspectingItemCoroutine);

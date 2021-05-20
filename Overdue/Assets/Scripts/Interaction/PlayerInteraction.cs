@@ -37,7 +37,6 @@ public class PlayerInteraction : MonoBehaviour
             
             if (currentlyHovering == null)
                 return;
-
             currentlyHovering.Interact();
         }
     }
@@ -76,7 +75,7 @@ public class PlayerInteraction : MonoBehaviour
             if (interactable != null)
             {
                 Debug.DrawLine(rayOrigin, hit.point);
-                
+                Debug.Log(hit.collider.gameObject.name);
                 return interactable;
             }
         }

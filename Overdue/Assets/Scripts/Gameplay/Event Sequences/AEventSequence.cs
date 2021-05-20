@@ -10,7 +10,6 @@ public abstract class AEventSequence : MonoBehaviour
 
     public virtual void OnFinishEvent()
     {
-
         if (this.nextEvent != null)
         {
             this.nextEvent.gameObject.SetActive(true);

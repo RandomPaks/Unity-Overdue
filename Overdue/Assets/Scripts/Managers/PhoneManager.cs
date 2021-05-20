@@ -91,7 +91,7 @@ public class PhoneManager : MonoBehaviour
 		{
 			if (itemInstance.ItemName == itemName)
 			{
-				Destroy(itemInstance.gameObject);
+				Destroy(itemInstance.gameObject, 2);
 				break;
 			}
 		}

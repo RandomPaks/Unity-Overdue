@@ -52,6 +52,10 @@ public class Item : MonoBehaviour, IInteractable
 	public void Interact()
 	{
 		PhoneManager.Instance.AddItem(itemName);
+        if (this.gameObject.GetComponent<ItemInteractEventSequence>() != null)
+        {
+            this.gameObject.GetComponent<ItemInteractEventSequence>().PlayEvent();
+        }
 	}
 
 	public void StopHover()

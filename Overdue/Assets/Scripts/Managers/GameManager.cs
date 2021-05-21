@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // add more if necessary
-public enum GameState { GAME, PAUSED, DIALOG, PHONE, CUTSCENE}
+public enum GameState { GAME, PAUSED, DIALOG, PHONE, CUTSCENE, CG}
 
 public class GameManager : MonoBehaviour
 {
@@ -38,6 +38,18 @@ public class GameManager : MonoBehaviour
                 this.state = GameState.GAME;
             }
         };
+
+        CGManager.Instance.OnShowCG += () =>
+        {
+            this.state = GameState.CG;
+        };
+        CGManager.Instance.OnCloseCG += () =>
+        {
+            if (this.state == GameState.CG)
+            {
+                this.state = GameState.GAME;
+            }
+        };
     }
     
     void Update()
@@ -55,6 +67,10 @@ public class GameManager : MonoBehaviour
         else if (this.state == GameState.DIALOG)
         {
             DialogManager.Instance.HandleUpdate();
+        }
+        else if (this.state == GameState.CG)
+        {
+            CGManager.Instance.HandleUpdate();
         }
         else if(this.state == GameState.PHONE)
         {

@@ -15,6 +15,7 @@ public class DialogManager : MonoBehaviour
 
     int currentLine = 0;
     Dialog dialog;
+    AudioSource dialogSFX;
     Action onDialogFinished;
 
     public bool IsShowing { get; private set; }
@@ -24,6 +25,7 @@ public class DialogManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        this.dialogSFX = GetComponent<AudioSource>();
     }
 
     public IEnumerator ShowDialog(Dialog dialog, Action onFinished = null)
@@ -38,8 +40,11 @@ public class DialogManager : MonoBehaviour
         this.onDialogFinished = onFinished;
         this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
         this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
-        //Debug.Log(this.dialog.Lines[this.currentLine].Line);
-        //yield return new WaitForEndOfFrame();
+        if (this.dialog.Lines[this.currentLine].SFX != null)
+        {
+            this.dialogSFX.clip = this.dialog.Lines[this.currentLine].SFX;
+            this.dialogSFX.Play();
+        }
     }
 
     public void HandleUpdate()
@@ -51,6 +56,11 @@ public class DialogManager : MonoBehaviour
             {
                 this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
                 this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
+                if (this.dialog.Lines[this.currentLine].SFX != null)
+                {
+                    this.dialogSFX.clip = this.dialog.Lines[this.currentLine].SFX;
+                    this.dialogSFX.Play();
+                }
             }
             else
             {

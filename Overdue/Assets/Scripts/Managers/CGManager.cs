@@ -42,6 +42,7 @@ public class CGManager : MonoBehaviour
         this.UpdateCGFrame(this.cg.Frames[this.currentIndex].Texture); 
         if (this.cg.Frames[this.currentIndex].SFX != null)
         {
+            this.cgSFX.volume = this.cg.Frames[this.currentIndex].SFXVolume;
             this.cgSFX.clip = this.cg.Frames[this.currentIndex].SFX;
             this.cgSFX.Play();
         }

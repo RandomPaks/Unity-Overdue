@@ -42,6 +42,7 @@ public class DialogManager : MonoBehaviour
         this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
         if (this.dialog.Lines[this.currentLine].SFX != null)
         {
+            this.dialogSFX.volume = this.dialog.Lines[this.currentLine].SFXVolume;
             this.dialogSFX.clip = this.dialog.Lines[this.currentLine].SFX;
             this.dialogSFX.Play();
         }

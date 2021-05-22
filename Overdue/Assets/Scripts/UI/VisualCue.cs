@@ -25,22 +25,25 @@ public class VisualCue : MonoBehaviour
 
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, GameManager.Instance.Player.GetComponentInChildren<Camera>().gameObject.transform.position);
-        Color color = image.color;
-
-        if (distance > maxDistance)
+        if(GameManager.Instance.Player.GetComponentInChildren<Camera>() != null)
         {
-            color.a = 0f;
-        }
-        else
-        {
-            Vector3 direction = (Camera.main.transform.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f);
+            float distance = Vector3.Distance(transform.position, GameManager.Instance.Player.GetComponentInChildren<Camera>().gameObject.transform.position);
+            Color color = image.color;
 
-            color.a = 1f;
+            if (distance > maxDistance)
+            {
+                color.a = 0f;
+            }
+            else
+            {
+                Vector3 direction = (Camera.main.transform.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f);
+
+                color.a = 1f;
+            }
+            image.color = color;
+            text.color = color;
         }
-        image.color = color;
-        text.color = color;
     }
 }

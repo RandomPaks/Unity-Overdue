@@ -57,6 +57,7 @@ public class PhoneManager : MonoBehaviour
 			isPhone = !isPhone;
 			flashlightToggle.isOn = flashlight.enabled;
 
+			audioSource.volume = 0.2f;
 			audioSource.clip = onPhoneSound;
 			audioSource.Play();
 
@@ -68,6 +69,7 @@ public class PhoneManager : MonoBehaviour
 			}
 			else
 			{
+				audioSource.volume = 0.2f;
 				audioSource.clip = offPhoneSound;
 				audioSource.Play();
 

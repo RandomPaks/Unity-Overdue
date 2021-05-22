@@ -6,7 +6,8 @@ using UnityEngine;
 public class CGFrame
 {
     [SerializeField] Texture2D texture;
-    [SerializeField] AudioClip sfx; 
+    [SerializeField] AudioClip sfx;
+    [SerializeField] float sfxVolume = 1f;
     
     public Texture2D Texture
     {
@@ -21,6 +22,14 @@ public class CGFrame
         get
         {
             return this.sfx;
+        }
+    }
+
+    public float SFXVolume
+    {
+        get
+        {
+            return this.sfxVolume;
         }
     }
 }

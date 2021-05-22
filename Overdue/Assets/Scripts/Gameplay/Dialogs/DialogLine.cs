@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class DialogLine
 {
     [SerializeField] string name; // name of person speaking
     [SerializeField] string line;
-    [SerializeField] AudioClip sfx; 
+    [SerializeField] AudioClip sfx;
+    [SerializeField] float sfxVolume = 1f;
+
 
     public string Name
     {
@@ -30,6 +30,14 @@ public class DialogLine
         get
         {
             return this.sfx;
+        }
+    }
+
+    public float SFXVolume
+    {
+        get
+        {
+            return this.sfxVolume;
         }
     }
 }

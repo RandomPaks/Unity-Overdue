@@ -30,10 +30,20 @@ public class SpiritController : MonoBehaviour
     // states
     [SerializeField] float sightRange;
     [SerializeField] float attackRange;
-    [SerializeField] float disableRange; 
+    [SerializeField] float disableRange;
     bool playerInSightRange = false;
     bool playerInAttackRange = false;
     bool playerInDisableRange = false;
+    bool isPatrolling = false;
+    bool isChasing = false;
+    bool isAttacking = false;
+
+    // animation
+    [SerializeField] Animator animator;
+    static readonly int idleAnim = Animator.StringToHash("Idle");
+    static readonly int walkAnim = Animator.StringToHash("Walk");
+    static readonly int runAnim = Animator.StringToHash("Run");
+    static readonly int attackAnim = Animator.StringToHash("Attack");
 
     void Awake()
     {
@@ -45,7 +55,7 @@ public class SpiritController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator.SetTrigger(idleAnim);
     }
 
     // Update is called once per frame
@@ -54,7 +64,6 @@ public class SpiritController : MonoBehaviour
         this.playerInSightRange = Physics.CheckSphere(this.transform.position, this.sightRange, playerLayer);
         this.playerInAttackRange = Physics.CheckSphere(this.transform.position, this.attackRange, playerLayer);
         
-
         if (!this.playerInSightRange && !this.playerInAttackRange)
         {
             this.PatrolState();
@@ -77,7 +86,6 @@ public class SpiritController : MonoBehaviour
         {
             this.EnablePlayerItems();
         }
-        
     }
 
     private void PatrolState()
@@ -88,13 +96,32 @@ public class SpiritController : MonoBehaviour
         }
         else
         {
+            // animation
+            if (!this.isPatrolling)
+            {
+                this.isPatrolling = true;
+                this.isChasing = false;
+                this.isAttacking = false;
+                this.animator.SetTrigger(walkAnim);
+            }
+
             this.agent.SetDestination(this.walkPoint);
         }
 
         Vector3 distanceToWalkPoint = this.transform.position - this.walkPoint;
+        
         // agent has reached destination
         if (distanceToWalkPoint.magnitude < 1f)
         {
+            // animation
+            if (!this.isPatrolling)
+            {
+                this.isPatrolling = true;
+                this.isChasing = false;
+                this.isAttacking = false;
+                this.animator.SetTrigger(idleAnim);
+            }
+
             this.isWalkPointSet = false;
         }
     }
@@ -114,15 +141,34 @@ public class SpiritController : MonoBehaviour
 
     private void ChaseState()
     {
+        // animation
+        if (!this.isChasing)
+        {
+            this.isPatrolling = false;
+            this.isChasing = true;
+            this.isAttacking = false;
+            this.animator.SetTrigger(runAnim);
+        }
+        
         this.agent.SetDestination(this.playerTransform.position);
     }
 
     private void AttackState()
     {
+        // animation
+        if (!this.isAttacking)
+        {
+            this.isPatrolling = false;
+            this.isChasing = false;
+            this.isAttacking = true;
+            this.animator.SetTrigger(attackAnim);
+        }
+
         // stop moving
         this.agent.SetDestination(this.transform.position);
-
-        this.transform.LookAt(this.playerTransform);
+        
+        // Rotate
+        // this.transform.LookAt(this.playerTransform);
 
         if (!this.alreadyAttacked)
         {

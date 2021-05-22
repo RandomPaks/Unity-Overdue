@@ -67,15 +67,16 @@ public class PlayerInteraction : MonoBehaviour
         Vector3 rayOrigin = playerCameraTransform.position;
         Vector3 rayDir = playerCameraTransform.forward;
         Ray interactRay = new Ray(rayOrigin, rayDir);
-
+        
         if (Physics.SphereCast(interactRay, interactRadius, out var hit, interactRange, interactableLayers))
         {
+            Debug.DrawLine(rayOrigin, hit.point);
+            
             IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
             
             if (interactable != null)
             {
                 Debug.DrawLine(rayOrigin, hit.point);
-                Debug.Log(hit.collider.gameObject.name);
                 return interactable;
             }
         }

@@ -115,7 +115,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             if (this.isFlickering)
             {
-                Debug.Log("Player disabled");
+                //Debug.Log("Player disabled");
                 if (this.totalFlickerTicks < this.flickerTime)
                 {
                     if (this.flickerTicks > this.delayTime)

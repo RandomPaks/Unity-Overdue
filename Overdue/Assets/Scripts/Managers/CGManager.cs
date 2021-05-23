@@ -81,4 +81,9 @@ public class CGManager : MonoBehaviour
     {
         this.cgCanvas.texture = texture; 
     }
+
+    public void ShowCanvas(bool flag)
+    {
+        this.cgCanvas.gameObject.SetActive(flag);
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // add more if necessary
-public enum GameState { GAME, PAUSED, DIALOG, PHONE, CUTSCENE, CG}
+public enum GameState { GAME, PAUSED, DIALOG, PHONE, CUTSCENE, CG, OTHER}
 
 public class GameManager : MonoBehaviour
 {
@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
         {
             this.playerController.HandleUpdate();
             this.playerInteraction.HandleUpdate();
-            if (this.spiritController != null)
+            if (this.spiritController != null && this.spiritController.gameObject.activeSelf)
             {
                 this.spiritController.HandleUpdate();
             }
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
         }
         else if(this.state == GameState.PHONE)
         {
-            if (this.spiritController != null)
+            if (this.spiritController != null && this.spiritController.gameObject.activeSelf)
             {
                 this.spiritController.HandleUpdate();
             }

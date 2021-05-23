@@ -71,6 +71,11 @@ public class Door : MonoBehaviour, IInteractable
         transform.DORotate(originalRotation + new Vector3(0f, -90f, 0), openDuration);
         
         isOpen = true;
+
+        if (this.gameObject.GetComponent<AEventSequence>() != null)
+        {
+            this.gameObject.GetComponent<AEventSequence>().PlayEvent();
+        }
     }
 
     public void StopHover()

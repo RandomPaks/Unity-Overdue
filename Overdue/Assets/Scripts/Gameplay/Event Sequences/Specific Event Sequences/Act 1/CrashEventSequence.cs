@@ -28,7 +28,7 @@ public class CrashEventSequence : AEventSequence
         this.player = GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
         CharacterController characterController = this.player.GetComponent<CharacterController>();
         characterController.enabled = false;
-        this.player.transform.LookAt(this.professorModel.transform);
+        this.player.transform.rotation = Quaternion.LookRotation(this.professorModel.transform.position, this.transform.up);
         this.player.m_MouseLook.Init(this.player.transform, Camera.main.transform);
         this.player.enabled = true;
         characterController.enabled = true;

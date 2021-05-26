@@ -17,13 +17,13 @@ public class ExitSecurityRoomEventSequence : AEventSequence
         this.spirit.transform.position = this.spiritPosition;
         this.spirit.SetActive(true);
 
-        this.alvaro.SetActive(false);
+        this.alvaro.transform.localPosition = Vector3.zero;
         this.eventBarriers.SetActive(true);
 
         this.player = GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>();
         CharacterController characterController = this.player.GetComponent<CharacterController>();
         characterController.enabled = false;
-        this.player.transform.rotation = Quaternion.LookRotation(this.spirit.transform.position, this.transform.up);
+        //this.player.transform.rotation = Quaternion.LookRotation(this.spirit.transform.position, this.transform.up);
         this.player.m_MouseLook.Init(this.player.transform, Camera.main.transform);
         characterController.enabled = true;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -13,6 +14,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
     {
+       
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -365,6 +367,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public void TakeDamage()
         {
             health -= 25.0f;
+            if(health <= 0)
+            {
+                GameOver();
+            }
         }
 
         private void SanityCheck()
@@ -373,7 +379,18 @@ namespace UnityStandardAssets.Characters.FirstPerson
             if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, sanityRange))
             {
                 if (hit.collider.tag == "Spirit") sanity -= 0.1f;
+                if (sanity <= 0)
+                {
+                    GameOver();
+                }
             }
+        }
+
+        public void GameOver()
+        {
+            m_MouseLook.SetCursorLock(false);
+            SceneManager.UnloadSceneAsync("Game Scene");
+            SceneManager.LoadSceneAsync("Game Over Scene");
         }
     }
 }

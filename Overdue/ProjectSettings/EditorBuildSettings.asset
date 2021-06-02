@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Dev/Raina_TestScene.unity
-    guid: 30a645e5f61463e46acfc4c60c6e6b0f
-  - enabled: 0
-    path: Assets/Scenes/Release/Persistent Scene.unity
-    guid: cfabd6cd67fc19d46a68de494e09c0ca
   - enabled: 1
     path: Assets/Scenes/Release/Main Menu Scene.unity
     guid: c1536c706dc9f9944abea1efdfe0e863
   - enabled: 1
     path: Assets/Scenes/Release/Game Scene.unity
     guid: d34bf0b0c603dd340a2118fd0c7a20a8
+  - enabled: 1
+    path: Assets/Scenes/Release/Game Over Scene.unity
+    guid: f6938dbf773164040a122ae8e011176f
   m_configObjects: {}

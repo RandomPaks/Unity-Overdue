@@ -8,6 +8,7 @@ public class ExitClinicEventSequence : AEventSequence
     [SerializeField] Vector3 spiritPosition;
 
     [SerializeField] GameObject alvaroLight;
+    [SerializeField] GameObject alvaro; 
     [SerializeField] GameObject eventBarriers;
 
     UnityStandardAssets.Characters.FirstPerson.FirstPersonController player;
@@ -27,6 +28,7 @@ public class ExitClinicEventSequence : AEventSequence
         characterController.enabled = true;
 
         this.alvaroLight.SetActive(true);
+        this.alvaro.SetActive(true);
         this.eventBarriers.SetActive(true);
 
         this.OnFinishEvent();

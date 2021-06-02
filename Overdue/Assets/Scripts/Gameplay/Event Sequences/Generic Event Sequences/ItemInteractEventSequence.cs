@@ -28,7 +28,7 @@ public class ItemInteractEventSequence : AEventSequence, IInteractable
     public override void OnFinishEvent()
     {
         base.OnFinishEvent();
-        this.gameObject.SetActive(this.disappearAfterInteract);
+        this.gameObject.SetActive(!this.disappearAfterInteract);
     }
 
     public override void OnTriggerEnter(Collider other)

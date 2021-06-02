@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AlvaroEventSequence : AEventSequence
 {
-    [SerializeField] GameObject alvaroModel;
+    //[SerializeField] GameObject alvaroModel;
     [SerializeField] GameObject alvaroLight;
     [SerializeField] GameObject spirit;
     [SerializeField] GameObject eventBarriers;
@@ -13,7 +13,7 @@ public class AlvaroEventSequence : AEventSequence
 
     public override void PlayEvent()
     {
-        this.alvaroModel.SetActive(true);
+        //this.alvaroModel.SetActive(true);
         this.alvaroLight.SetActive(false);
         this.spirit.SetActive(false);
         this.eventBarriers.SetActive(false);

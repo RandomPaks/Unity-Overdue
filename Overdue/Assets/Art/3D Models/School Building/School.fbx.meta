@@ -7,33 +7,68 @@ ModelImporter:
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
+      name: Door-colormap
+    second: {fileID: 2800000, guid: 036f40df270ae4648899872b424ac95f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Door-specularmap
+    second: {fileID: 2800000, guid: 6a7bf691f61d69c42a9acff6f4926da1, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
       name: School_Arch-door
-    second: {fileID: 2800000, guid: 551c1c3d540dbfb4db655f6b67a7470b, type: 3}
+    second: {fileID: 2800000, guid: f73ed7517f1595e4896380874c022ba4, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: School_Arch-window
-    second: {fileID: 2800000, guid: a115f6dbf51b25c43a32e65d0cbd40e9, type: 3}
+    second: {fileID: 2800000, guid: b24b020a204b99648ae455f5c8d9b7c5, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: School_Bathroom-Floor
+    second: {fileID: 2800000, guid: 212cfada502b0a84aaac22dfb2d40a80, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: School_Bigroom-window
+    second: {fileID: 2800000, guid: 63853f2dddbfda944972c1358d9f3d39, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: School_Floor
-    second: {fileID: 2800000, guid: 48bc52ab4d18771478f8394bf3d70f92, type: 3}
+    second: {fileID: 2800000, guid: 7509d1d7c7b267f438046eb1d3657ecf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: School_Room-Floor
+    second: {fileID: 2800000, guid: 5445cb57f71c2f14085bf26d623fe6df, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: School_Room-stage
+    second: {fileID: 2800000, guid: df6f9a253fc3e474bb2b67492dd5fad3, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: School_Stairs-steps
+    second: {fileID: 2800000, guid: 6138ac8ebc86f96448ce2426d362c3c4, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: School_Walls-white-color
-    second: {fileID: 2800000, guid: cb9a90b717e7c0b4aa89fe939835da18, type: 3}
+    second: {fileID: 2800000, guid: b4714c0c5addd9649b47807f23362bbd, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: School_Window-short
-    second: {fileID: 2800000, guid: 99bf1a2ea75f6d643930127df4c20a2c, type: 3}
+    second: {fileID: 2800000, guid: ee681fa74c047b841a0e0d61ef057a6c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: School_Window-tall
-    second: {fileID: 2800000, guid: a4dbc605b82bc174a92cb8b7fa4f1af2, type: 3}
+    second: {fileID: 2800000, guid: c83f37f490618bd4595dae06fce3789b, type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

@@ -87,43 +87,31 @@ public class Item : MonoBehaviour, IInteractable
         gameObject.transform.Rotate(rotationAnchorTransform.right, yRot * Time.deltaTime, Space.World);
     }
 
-    public IEnumerator StartInspectCoroutine()
+    public void StartInspect()
     {
         if (isBeingInspected)
         {
             Debug.LogError($"Tried to inspect {this} but it is already being inspected!");
-            yield break;
+            return;
         }
 
         gameObject.SetActive(true);
         isBeingInspected = true;
         canRotateItem = true;
 
-        transform.localScale = Vector3.zero;
         transform.rotation = rotationAnchorTransform.rotation;
-        
-        DOTween.Kill(transform);
-        yield return transform.DOScale(Vector3.one, 0.5f).WaitForCompletion();
     }
 
-    public IEnumerator StopInspectCoroutine()
+    public void StopInspect()
     {
         if (!isBeingInspected)
         {
             Debug.LogError($"Tried to stop inspecting {this} but it is already not being inspected!");
-            yield break;
+            return;
         }
 
         isBeingInspected = false;
         canRotateItem = false;
-
-        float tweenDuration = 0.5f;
-        DOTween.Kill(transform);
-        yield return DOTween.Sequence()
-            .Append(transform.DOScale(Vector3.zero, tweenDuration))
-            .Join(transform.DORotate(transform.rotation.eulerAngles + new Vector3(0, 180f, 0), tweenDuration))
-            .WaitForCompletion();
-        
         gameObject.SetActive(false);
     }
 }

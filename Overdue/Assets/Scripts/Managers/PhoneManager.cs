@@ -28,11 +28,7 @@ public class PhoneManager : MonoBehaviour
 	List<Item> inventory = new List<Item>();
 	Item currentInspectingItem = null;
 
-	Coroutine switchInspectingItemCoroutine = null;
-
 	bool isPhone = false;
-	bool isTransitioningIn = false;
-	bool isTransitioningOut = false;
 	bool isInspectingItem = false;
 
 	public List<Item> Inventory => inventory;
@@ -73,13 +69,7 @@ public class PhoneManager : MonoBehaviour
 				audioSource.clip = offPhoneSound;
 				audioSource.Play();
 
-				if (switchInspectingItemCoroutine != null)
-				{
-					StopCoroutine(switchInspectingItemCoroutine);
-					switchInspectingItemCoroutine = null;
-				}
-
-				if (isInspectingItem && !isTransitioningOut)
+				if (isInspectingItem)
 				{
 					StopInspectingItem();
 				}
@@ -189,9 +179,6 @@ public class PhoneManager : MonoBehaviour
 
 	public void InspectItem(Item itemToInspect)
 	{
-		if (isTransitioningIn)
-			return;
-
 		if (isInspectingItem)
 		{
 			if (currentInspectingItem == itemToInspect)
@@ -211,13 +198,7 @@ public class PhoneManager : MonoBehaviour
 
 	void StartInspectingItem(Item item)
 	{
-		StartCoroutine(StartInspectCoroutine(item));
-	}
-
-	IEnumerator StartInspectCoroutine(Item item)
-	{
 		isInspectingItem = true;
-		isTransitioningIn = true;
 
 		currentInspectingItem = Instantiate(item, inspectTransform);
 		currentInspectingItem.Initialize(inspectTransform);
@@ -226,49 +207,30 @@ public class PhoneManager : MonoBehaviour
 		itemDescriptionText.gameObject.SetActive(true);
 		itemDescriptionText.text = item.ItemDescription;
 
-		yield return StartCoroutine(currentInspectingItem.StartInspectCoroutine());
-
-		isTransitioningIn = false;
+		currentInspectingItem.StartInspect();
 	}
 
 	void StopInspectingItem()
 	{
-		StartCoroutine(StopInspectingItemCoroutine());
-	}
-
-	IEnumerator StopInspectingItemCoroutine()
-	{
-		isTransitioningOut = true;
-
 		itemDescriptionText.gameObject.SetActive(false);
 
-		yield return StartCoroutine(currentInspectingItem.StopInspectCoroutine());
+		currentInspectingItem.StopInspect();
 
 		Destroy(currentInspectingItem.gameObject);
 
 		currentInspectingItem = null;
-		isTransitioningOut = false;
 		isInspectingItem = false;
 	}
 
 	void SwitchInspectingItem(Item itemToInspect)
 	{
-		if (switchInspectingItemCoroutine != null)
-			return;
-
-		switchInspectingItemCoroutine = StartCoroutine(SwitchInspectingItemCoroutine(itemToInspect));
-	}
-
-	IEnumerator SwitchInspectingItemCoroutine(Item itemToInspect)
-	{
-		yield return StartCoroutine(StopInspectingItemCoroutine());
-		yield return StartCoroutine(StartInspectCoroutine(itemToInspect));
-		switchInspectingItemCoroutine = null;
+		StopInspectingItem();
+		StartInspectingItem(itemToInspect);
 	}
 
 	public void KeyToggler()
     {
-		if(currentInspectingItem != null && !isTransitioningOut)
+		if(currentInspectingItem != null)
         {
 			StopInspectingItem();
 		}
@@ -285,7 +247,7 @@ public class PhoneManager : MonoBehaviour
 
 	public void NotesToggler()
 	{
-		if (currentInspectingItem != null && !isTransitioningOut)
+		if (currentInspectingItem != null)
 		{
 			StopInspectingItem();
 		}

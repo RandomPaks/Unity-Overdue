@@ -1136,6 +1136,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5678097828613532133}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2023824681 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4410596142451890526, guid: 57e9d04712eec43499c0a515375fdd0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 4410596142991189039}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6cfa656c7f02d149afd7fceae6c970f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2079668222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,6 +1811,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 98070236, guid: 58d328271e57b954cb5a5001ac80fbe7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2023824681}
+    - target: {fileID: 98070236, guid: 58d328271e57b954cb5a5001ac80fbe7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: KeyToggler
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152999910, guid: 58d328271e57b954cb5a5001ac80fbe7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2023824681}
+    - target: {fileID: 1152999910, guid: 58d328271e57b954cb5a5001ac80fbe7, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NotesToggler
+      objectReference: {fileID: 0}
     - target: {fileID: 2741818351514377586, guid: 58d328271e57b954cb5a5001ac80fbe7,
         type: 3}
       propertyPath: m_IsActive

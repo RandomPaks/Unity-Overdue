@@ -17,7 +17,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             this.isPaused = !this.isPaused;
             if (this.isPaused)
@@ -32,6 +32,7 @@ public class PauseManager : MonoBehaviour
                 this.pauseUI.SetActive(false);
                 //GameManager.Instance.toggleCursorLock(true);
                 GameManager.Instance.SetState(prevState);
+                Cursor.visible = false;
             }
         }
     }

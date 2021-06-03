@@ -33,6 +33,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
         [SerializeField] private AudioClip m_FlashlightSound;           // the sound played when character touches back on ground.
+        [SerializeField] private AudioClip m_HurtSound;           // the sound played when character touches back on ground.
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -367,6 +368,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
         public void TakeDamage()
         {
             health -= 25.0f;
+            m_AudioSource.clip = m_HurtSound;
+            m_AudioSource.Play();
             if(health <= 0)
             {
                 GameOver();

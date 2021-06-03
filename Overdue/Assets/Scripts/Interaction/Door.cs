@@ -11,6 +11,7 @@ public class Door : MonoBehaviour, IInteractable
     [SerializeField, Min(0)] float remainOpenDuration = 5f;
     [SerializeField] GameObject visualCue = null;
     Vector3 originalCuePosition;
+    [SerializeField] float doorRotationAngle = -90f;
 
     AudioSource audioSource;
     [SerializeField] AudioClip doorOpenSound;
@@ -80,10 +81,10 @@ public class Door : MonoBehaviour, IInteractable
         audioSource.clip = doorOpenSound;
         audioSource.Play();
         DOTween.Kill(transform);
-        transform.DORotate(originalRotation + new Vector3(0f, -90f, 0), openDuration);
+        transform.DORotate(originalRotation + new Vector3(0f, doorRotationAngle, 0), openDuration);
         if(visualCue != null)
         {
-            visualCue.transform.DOMove(new Vector3(originalCuePosition.x + 2f, 1.7f, originalCuePosition.z + 2f), openDuration);
+            visualCue.transform.DOMove(new Vector3(originalCuePosition.x + 2f, originalCuePosition.y, originalCuePosition.z + 2f), openDuration);
         }
         
         isOpen = true;

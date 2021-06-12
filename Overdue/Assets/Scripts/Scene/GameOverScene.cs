@@ -26,9 +26,8 @@ public class GameOverScene : MonoBehaviour
         LoadingManager.Instance.MainMenuFromGameOver();
     }
 
-    public void Click()
+    public void OnEndGameClick()
     {
-
-        Debug.Log("test;");
+        LoadingManager.Instance.MainMenuFromEndGame();
     }
 }

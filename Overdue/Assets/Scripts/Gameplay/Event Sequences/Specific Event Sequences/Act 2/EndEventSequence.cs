@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndEventSequence : AEventSequence
 {
@@ -11,6 +12,10 @@ public class EndEventSequence : AEventSequence
     {
         this.spirit.SetActive(false);
         this.alvaro.transform.position = Vector3.zero;
+
+        GameManager.Instance.toggleCursorLock(false);
+        SceneManager.UnloadSceneAsync("Game Scene");
+        SceneManager.LoadSceneAsync("End Game Scene");
 
         this.OnFinishEvent();
     }

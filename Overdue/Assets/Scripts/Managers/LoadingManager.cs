@@ -67,6 +67,15 @@ public class LoadingManager : MonoBehaviour
         StartCoroutine(LoadingProgress());
     }
 
+    public void MainMenuFromEndGame()
+    {
+        black.gameObject.SetActive(true);
+        loadingText.gameObject.SetActive(true);
+        SceneManager.UnloadSceneAsync("End Game Scene");
+        scenesLoading.Add(SceneManager.LoadSceneAsync("Main Menu Scene"));
+        StartCoroutine(LoadingProgress());
+    }
+
     public IEnumerator LoadingProgress()
     {
         for (int i = 0; i < scenesLoading.Count; i++)

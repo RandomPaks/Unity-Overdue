@@ -13,6 +13,7 @@ public class CGManager : MonoBehaviour
 
     int currentIndex = 0;
     CG cg;
+    CGFrame currentFrame; 
     AudioSource cgSFX;
     Action onCGFinished;
 
@@ -31,49 +32,34 @@ public class CGManager : MonoBehaviour
     public IEnumerator ShowCG(CG cg, float delay, Action onFinished = null)
     {
         yield return new WaitForEndOfFrame();
-        Debug.Log("CG");
+        //Debug.Log("CG");
         this.OnShowCG?.Invoke();
 
         this.IsShowing = true;
         this.cg = cg;
+        this.currentFrame = cg.Frames[this.currentIndex]; 
         this.delay = delay; 
         this.cgCanvas.gameObject.SetActive(true);
         this.onCGFinished = onFinished;
         this.UpdateCGFrame(this.cg.Frames[this.currentIndex].Texture); 
-        if (this.cg.Frames[this.currentIndex].SFX != null)
+        if (this.currentFrame.SFX != null)
         {
-            this.cgSFX.volume = this.cg.Frames[this.currentIndex].SFXVolume;
-            this.cgSFX.clip = this.cg.Frames[this.currentIndex].SFX;
+            this.cgSFX.volume = this.currentFrame.SFXVolume;
+            this.cgSFX.clip = this.currentFrame.SFX;
             this.cgSFX.Play();
+        }
+        if (this.currentFrame.DialogLines.Lines.Count != 0)
+        {
+            StartCoroutine(this.DisplayDialogCG());
         }
     }
 
     // Update is called once per frame
     public void HandleUpdate()
     {
-        this.ticks += Time.deltaTime; 
-        if (this.ticks >= this.delay)
+        if (this.currentFrame.DialogLines.Lines.Count == 0)
         {
-            this.ticks = 0; 
-            this.currentIndex++;
-            if (this.currentIndex < this.cg.Frames.Count)
-            {
-                this.UpdateCGFrame(this.cg.Frames[this.currentIndex].Texture);
-                if (this.cg.Frames[this.currentIndex].SFX != null)
-                {
-                    this.cgSFX.clip = this.cg.Frames[this.currentIndex].SFX;
-                    this.cgSFX.Play();
-                }
-            }
-            else
-            {
-                this.currentIndex = 0;
-                this.IsShowing = false;
-                this.cgCanvas.gameObject.SetActive(false);
-                this.onCGFinished?.Invoke();
-                this.OnCloseCG?.Invoke();
-                Debug.Log("CG finished");
-            }
+            this.DisplayCG();
         }
     }
 
@@ -85,5 +71,54 @@ public class CGManager : MonoBehaviour
     public void ShowCanvas(bool flag)
     {
         this.cgCanvas.gameObject.SetActive(flag);
+    }
+
+    void DisplayCG()
+    {
+        this.ticks += Time.deltaTime;
+        if (this.ticks >= this.delay)
+        {
+            this.ticks = 0;
+            this.ShowNextCG();
+        }
+    }
+
+    // if the CG has dialog
+    IEnumerator DisplayDialogCG()
+    {
+        Debug.Log("Showing Dialog CG");
+        yield return new WaitForSeconds(this.delay);
+        StartCoroutine(DialogManager.Instance.ShowDialog(this.currentFrame.DialogLines, this.ShowNextCG)); 
+    }
+
+    // cg dialog finished show next frame
+    void ShowNextCG()
+    {
+        this.currentIndex++;
+        if (this.currentIndex < this.cg.Frames.Count)
+        {
+            this.currentFrame = this.cg.Frames[this.currentIndex];
+
+            this.UpdateCGFrame(this.currentFrame.Texture);
+            if (this.currentFrame.SFX != null)
+            {
+                this.cgSFX.clip = this.currentFrame.SFX;
+                this.cgSFX.Play();
+            }
+
+            if (this.currentFrame.DialogLines.Lines.Count != 0)
+            {
+                StartCoroutine(this.DisplayDialogCG());
+            }
+        }
+        else
+        {
+            this.currentIndex = 0;
+            this.IsShowing = false;
+            this.cgCanvas.gameObject.SetActive(false);
+            this.onCGFinished?.Invoke();
+            this.OnCloseCG?.Invoke();
+            //Debug.Log("CG finished");
+        }
     }
 }

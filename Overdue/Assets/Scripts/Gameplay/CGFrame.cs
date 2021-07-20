@@ -6,6 +6,7 @@ using UnityEngine;
 public class CGFrame
 {
     [SerializeField] Texture2D texture;
+    [SerializeField] Dialog dialogLines; 
     [SerializeField] AudioClip sfx;
     [SerializeField] float sfxVolume = 1f;
     
@@ -14,6 +15,14 @@ public class CGFrame
         get
         {
             return this.texture;
+        }
+    }
+
+    public Dialog DialogLines
+    {
+        get
+        {
+            return this.dialogLines;
         }
     }
 

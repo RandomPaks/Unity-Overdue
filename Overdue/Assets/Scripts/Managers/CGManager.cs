@@ -57,9 +57,11 @@ public class CGManager : MonoBehaviour
     // Update is called once per frame
     public void HandleUpdate()
     {
-        if (this.currentFrame.DialogLines.Lines.Count == 0)
+        //Debug.Log("Current frame line count: " + this.currentFrame.DialogLines.Lines.Count);
+        if (this.currentFrame.DialogLines.Lines.Count == 0 && this.IsShowing)
         {
             this.DisplayCG();
+            Debug.Log("No dialog");
         }
     }
 
@@ -86,19 +88,20 @@ public class CGManager : MonoBehaviour
     // if the CG has dialog
     IEnumerator DisplayDialogCG()
     {
-        Debug.Log("Showing Dialog CG");
+        //Debug.Log("Showing Dialog CG");
         yield return new WaitForSeconds(this.delay);
-        StartCoroutine(DialogManager.Instance.ShowDialog(this.currentFrame.DialogLines, this.ShowNextCG)); 
+        StartCoroutine(DialogManager.Instance.ShowDialog(this.currentFrame.DialogLines, true, this.ShowNextCG)); 
     }
 
     // cg dialog finished show next frame
     void ShowNextCG()
     {
         this.currentIndex++;
+        
         if (this.currentIndex < this.cg.Frames.Count)
         {
             this.currentFrame = this.cg.Frames[this.currentIndex];
-
+            Debug.Log("Current frame line count: " + this.currentFrame.DialogLines.Lines.Count);
             this.UpdateCGFrame(this.currentFrame.Texture);
             if (this.currentFrame.SFX != null)
             {
@@ -118,7 +121,7 @@ public class CGManager : MonoBehaviour
             this.cgCanvas.gameObject.SetActive(false);
             this.onCGFinished?.Invoke();
             this.OnCloseCG?.Invoke();
-            //Debug.Log("CG finished");
+            Debug.Log("CG finished");
         }
     }
 }

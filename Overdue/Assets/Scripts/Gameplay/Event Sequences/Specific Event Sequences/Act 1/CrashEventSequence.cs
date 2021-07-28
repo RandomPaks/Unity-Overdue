@@ -15,7 +15,7 @@ public class CrashEventSequence : AEventSequence
     {
         CGManager.Instance.UpdateCGFrame(this.blackTexture);
         CGManager.Instance.ShowCanvas(true);
-        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog, this.OnFinishEvent));
+        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog, false, this.OnFinishEvent));
     }
 
     public override void OnFinishEvent()

@@ -18,6 +18,7 @@ public class DialogManager : MonoBehaviour
     AudioSource dialogSFX;
     Action onDialogFinished;
 
+    bool withCG = false; // dialog is displaying on top of CG
     public bool IsShowing { get; private set; }
 
     public static DialogManager Instance { get; private set; }
@@ -28,7 +29,7 @@ public class DialogManager : MonoBehaviour
         this.dialogSFX = GetComponent<AudioSource>();
     }
 
-    public IEnumerator ShowDialog(Dialog dialog, Action onFinished = null)
+    public IEnumerator ShowDialog(Dialog dialog, bool withCG, Action onFinished = null)
     {
         yield return new WaitForEndOfFrame();
         Debug.Log("Dialog");
@@ -40,6 +41,7 @@ public class DialogManager : MonoBehaviour
         this.onDialogFinished = onFinished;
         this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
         this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
+        this.withCG = withCG;
         if (this.dialog.Lines[this.currentLine].SFX != null)
         {
             this.dialogSFX.volume = this.dialog.Lines[this.currentLine].SFXVolume;
@@ -50,7 +52,7 @@ public class DialogManager : MonoBehaviour
 
     public void HandleUpdate()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) &&  this.IsShowing)
         {
             this.currentLine++;
             if (this.currentLine < this.dialog.Lines.Count)
@@ -69,8 +71,11 @@ public class DialogManager : MonoBehaviour
                 this.IsShowing = false;
                 this.dialogBox.SetActive(false);
                 this.onDialogFinished?.Invoke();
-                this.OnCloseDialog?.Invoke();
-                Debug.Log("Dialog finished");
+                if (!this.withCG)
+                {
+                    this.OnCloseDialog?.Invoke();
+                }
+                //Debug.Log("Dialog finished");
             }
         }
     }

@@ -17,6 +17,6 @@ public class DialogEventSequence : AEventSequence
 
     void ShowDialog()
     {
-        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog, this.OnFinishEvent));
+        StartCoroutine(DialogManager.Instance.ShowDialog(this.dialog, false, this.OnFinishEvent));
     }
 }

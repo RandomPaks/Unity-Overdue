@@ -16,7 +16,14 @@ public class PhoneManager : MonoBehaviour
 	[Header("UI Instance References")]
 	[SerializeField] GameObject phoneUI;
 	[SerializeField] GameObject keyInventoryUI;
+	[SerializeField] Toggle keyToggle;
+
 	[SerializeField] GameObject notesInventoryUI;
+	[SerializeField] Toggle notesToggle;
+
+	[SerializeField] GameObject mapUI;
+	[SerializeField] Toggle mapToggle;
+
 	[SerializeField] Toggle flashlightToggle;
 	[SerializeField] Light flashlight;
 
@@ -52,6 +59,42 @@ public class PhoneManager : MonoBehaviour
 		{
 			isPhone = !isPhone;
 			flashlightToggle.isOn = flashlight.enabled;
+
+			audioSource.volume = 0.2f;
+			audioSource.clip = onPhoneSound;
+			audioSource.Play();
+
+			if (isPhone)
+			{
+				this.phoneUI.SetActive(true);
+				GameManager.Instance.toggleCursorLock(false);
+				GameManager.Instance.SetState(GameState.PHONE);
+			}
+			else
+			{
+				audioSource.volume = 0.2f;
+				audioSource.clip = offPhoneSound;
+				audioSource.Play();
+
+				if (isInspectingItem)
+				{
+					StopInspectingItem();
+				}
+
+				this.phoneUI.SetActive(false);
+				GameManager.Instance.toggleCursorLock(true);
+				GameManager.Instance.SetState(GameState.GAME);
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.M) && !this.isDisabled && (GameManager.Instance.GetState() == GameState.GAME || GameManager.Instance.GetState() == GameState.PHONE))
+		{
+			isPhone = !isPhone;
+			flashlightToggle.isOn = flashlight.enabled;
+			keyToggle.isOn = keyInventoryUI.activeSelf;
+			notesToggle.isOn = notesInventoryUI.activeSelf;
+			mapToggle.isOn = true;
+			mapUI.SetActive(true);
 
 			audioSource.volume = 0.2f;
 			audioSource.clip = onPhoneSound;
@@ -242,8 +285,9 @@ public class PhoneManager : MonoBehaviour
         {
 			keyInventoryUI.SetActive(true);
 			notesInventoryUI.SetActive(false);
+			mapUI.SetActive(false);
 		}
-    }
+	}
 
 	public void NotesToggler()
 	{
@@ -258,6 +302,25 @@ public class PhoneManager : MonoBehaviour
 		else
 		{
 			notesInventoryUI.SetActive(true);
+			keyInventoryUI.SetActive(false);
+			mapUI.SetActive(false);
+		}
+	}
+
+	public void MapToggler()
+    {
+		if (currentInspectingItem != null)
+		{
+			StopInspectingItem();
+		}
+		if (mapUI.activeSelf)
+		{
+			mapUI.SetActive(false);
+		}
+		else
+		{
+			mapUI.SetActive(true);
+			notesInventoryUI.SetActive(false);
 			keyInventoryUI.SetActive(false);
 		}
 	}

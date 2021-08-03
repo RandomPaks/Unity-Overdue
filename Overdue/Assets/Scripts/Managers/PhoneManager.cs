@@ -91,8 +91,12 @@ public class PhoneManager : MonoBehaviour
 		{
 			isPhone = !isPhone;
 			flashlightToggle.isOn = flashlight.enabled;
-			keyToggle.isOn = keyInventoryUI.activeSelf;
-			notesToggle.isOn = notesInventoryUI.activeSelf;
+			keyToggle.isOn = false;
+			keyInventoryUI.SetActive(false);
+
+			notesToggle.isOn = false;
+			notesInventoryUI.SetActive(false);
+
 			mapToggle.isOn = true;
 			mapUI.SetActive(true);
 

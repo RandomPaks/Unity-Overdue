@@ -57,11 +57,14 @@ public class CGManager : MonoBehaviour
     // Update is called once per frame
     public void HandleUpdate()
     {
-        Debug.Log("Current frame line count: " + this.currentFrame.DialogLines.Lines.Count);
-        if (this.currentFrame.DialogLines.Lines.Count == 0 && this.IsShowing)
+        if(this.currentFrame != null)
         {
-            this.DisplayCG();
-            Debug.Log("No dialog");
+            Debug.Log("Current frame line count: " + this.currentFrame.DialogLines.Lines.Count);
+            if (this.currentFrame.DialogLines.Lines.Count == 0 && this.IsShowing)
+            {
+                this.DisplayCG();
+                Debug.Log("No dialog");
+            }
         }
     }
 

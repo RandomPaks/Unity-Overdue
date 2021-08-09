@@ -23,6 +23,9 @@ public class PhoneManager : MonoBehaviour
 
 	[SerializeField] GameObject mapUI;
 	[SerializeField] Toggle mapToggle;
+	[SerializeField] GameObject mapLevel1;
+	[SerializeField] GameObject mapLevel2;
+	[SerializeField] GameObject mapLevel3;
 
 	[SerializeField] Toggle flashlightToggle;
 	[SerializeField] Light flashlight;
@@ -99,6 +102,7 @@ public class PhoneManager : MonoBehaviour
 
 			mapToggle.isOn = true;
 			mapUI.SetActive(true);
+			SetMapLevel();
 
 			audioSource.volume = 0.2f;
 			audioSource.clip = onPhoneSound;
@@ -326,6 +330,7 @@ public class PhoneManager : MonoBehaviour
 			mapUI.SetActive(true);
 			notesInventoryUI.SetActive(false);
 			keyInventoryUI.SetActive(false);
+			SetMapLevel();
 		}
 	}
 
@@ -334,4 +339,26 @@ public class PhoneManager : MonoBehaviour
 		audioSource.clip = sound;
 		audioSource.Play();
     }
+
+	void SetMapLevel()
+    {
+		Transform player = GameManager.Instance.Player.transform;
+
+		mapLevel1.SetActive(false);
+		mapLevel2.SetActive(false);
+		mapLevel3.SetActive(false);
+
+		if (player.position.y >= 20)
+        {
+			mapLevel3.SetActive(true);
+        }
+		else if (player.position.y >= 10)
+		{
+			mapLevel2.SetActive(true);
+		}
+		else
+		{
+			mapLevel1.SetActive(true);
+		}
+	}
 }

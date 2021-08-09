@@ -711,7 +711,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 758360898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.62, y: 4, z: 4.86}
+  m_LocalPosition: {x: -5.62, y: 6.04, z: 4.86}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -850,7 +850,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1325,7 +1325,7 @@ PrefabInstance:
     - target: {fileID: 3701590243270849912, guid: 76523f118bcd1cf4faa6125f1ea4a4c4,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.6
+      value: -11.5
       objectReference: {fileID: 0}
     - target: {fileID: 3701590243270849912, guid: 76523f118bcd1cf4faa6125f1ea4a4c4,
         type: 3}
@@ -1826,6 +1826,36 @@ PrefabInstance:
     - target: {fileID: 1152999910, guid: 58d328271e57b954cb5a5001ac80fbe7, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: NotesToggler
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680554112708969925, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680554112708969925, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680554112708969925, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680554112708969925, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680554112708969925, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1680554112708969925, guid: 58d328271e57b954cb5a5001ac80fbe7,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2741818351514377586, guid: 58d328271e57b954cb5a5001ac80fbe7,
         type: 3}

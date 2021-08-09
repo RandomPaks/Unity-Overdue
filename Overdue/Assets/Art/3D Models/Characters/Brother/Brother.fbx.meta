@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 4e3920080c861b948b83438632ec4d8a
+guid: 55b161aee0ad83f48a759bd9e8c01a0d
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable:
-  - first:
-      74: -203655887218126122
-    second: mixamo.com
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -37,7 +34,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 35
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -72,7 +69,7 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips:
-  - 6cd497e11c4990e4cb5a09583aa88fa0
+  - e0e3b37d04cc2b44b9808d53279f94e2
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
@@ -85,7 +82,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 1
+    globalScale: 35
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 1

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System;
 
@@ -9,6 +10,7 @@ public class DialogManager : MonoBehaviour
     [SerializeField] GameObject dialogBox;
     [SerializeField] TextMeshProUGUI dialogName;
     [SerializeField] TextMeshProUGUI dialogText;
+    [SerializeField] RawImage dialogSprite;
 
     public event Action OnShowDialog;
     public event Action OnCloseDialog;
@@ -38,6 +40,7 @@ public class DialogManager : MonoBehaviour
         this.IsShowing = true;
         this.dialog = dialog;
         this.dialogBox.SetActive(true);
+        this.dialogSprite.gameObject.SetActive(true);
         this.onDialogFinished = onFinished;
         this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
         this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
@@ -59,6 +62,7 @@ public class DialogManager : MonoBehaviour
             {
                 this.UpdateDialogText(this.dialog.Lines[this.currentLine].Line);
                 this.UpdateDialogName(this.dialog.Lines[this.currentLine].Name);
+                this.UpdateDialogSprite(this.dialog.Lines[this.currentLine].Sprite);
                 if (this.dialog.Lines[this.currentLine].SFX != null)
                 {
                     this.dialogSFX.clip = this.dialog.Lines[this.currentLine].SFX;
@@ -70,6 +74,7 @@ public class DialogManager : MonoBehaviour
                 this.currentLine = 0;
                 this.IsShowing = false;
                 this.dialogBox.SetActive(false);
+                this.dialogSprite.gameObject.SetActive(false);
                 this.onDialogFinished?.Invoke();
                 if (!this.withCG)
                 {
@@ -88,5 +93,10 @@ public class DialogManager : MonoBehaviour
     public void UpdateDialogText(string line)
     {
         this.dialogText.text = line; 
+    }
+
+    public void UpdateDialogSprite(Texture sprite)
+    {
+        this.dialogSprite.texture = sprite;
     }
 }

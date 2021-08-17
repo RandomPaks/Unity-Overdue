@@ -25,6 +25,7 @@ public class Cat : MonoBehaviour, IInteractable
 	public void Interact()
 	{
 		DialogManager.Instance.UpdateDialogName("Cat");
+		DialogManager.Instance.UpdateDialogSprite(saveDialog.Lines[0].Sprite);
 		StartCoroutine(DialogManager.Instance.ShowDialog(saveDialog, false, OnDialogComplete));
 	}
 

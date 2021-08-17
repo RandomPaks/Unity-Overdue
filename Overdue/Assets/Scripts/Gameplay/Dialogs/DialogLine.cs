@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class DialogLine
@@ -7,6 +8,7 @@ public class DialogLine
     [SerializeField] string line;
     [SerializeField] AudioClip sfx;
     [SerializeField] float sfxVolume = 1f;
+    [SerializeField] Texture sprite;
 
 
     public string Name
@@ -38,6 +40,14 @@ public class DialogLine
         get
         {
             return this.sfxVolume;
+        }
+    }
+
+    public Texture Sprite
+    {
+        get
+        {
+            return this.sprite;
         }
     }
 }

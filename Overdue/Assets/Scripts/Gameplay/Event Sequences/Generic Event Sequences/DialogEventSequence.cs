@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class DialogEventSequence : AEventSequence
 {
-    [SerializeField] Dialog dialog; 
+    [SerializeField] TMP_Text mapText;
+    [SerializeField] string objectiveText;
+
+    [SerializeField] Dialog dialog;
 
     public override void PlayEvent()
     {
@@ -11,6 +15,7 @@ public class DialogEventSequence : AEventSequence
 
     public override void OnFinishEvent()
     {
+        if (mapText != null) mapText.text = objectiveText;
         base.OnFinishEvent();
         this.gameObject.SetActive(false);
     }

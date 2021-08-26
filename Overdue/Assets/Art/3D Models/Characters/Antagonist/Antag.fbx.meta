@@ -1,9 +1,39 @@
 fileFormatVersion: 2
-guid: 8d93a6c568527aa40ad477d264a8b444
+guid: 4a964aec1719bdd4198b98931fdcbdec
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dress_Shader
+    second: {fileID: 2100000, guid: 57c7f19b8bf5509498ec2b4394753037, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face_Shader
+    second: {fileID: 2100000, guid: 47c91b3e5a30cb44a84b344c5ca23cb2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hair
+    second: {fileID: 2100000, guid: e10f03d70fde45f4385a69dbb10bab3f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Skin_Shader
+    second: {fileID: 2100000, guid: 7b3884df20369324183a1d85cd4f6a41, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Sleeves
+    second: {fileID: 2100000, guid: c47b1748f0606c345b95a606935a722c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blinn2
+    second: {fileID: 2100000, guid: 68ab41782a393e5468aa7f65f12bf9cd, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -15,7 +45,8 @@ ModelImporter:
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
-    rigImportErrors: 
+    rigImportErrors: "Invalid copied Avatar Rig Configuration:\n\tNo human bone found.
+      Ensure both rig type match\n"
     rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
